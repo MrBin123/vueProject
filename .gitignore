@@ -12,7 +12,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 
-# 添加的文件忽略
+# vue文件忽略
 .babelrc
 .editorconfig
 .eslintignore
