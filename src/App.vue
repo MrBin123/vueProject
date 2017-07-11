@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
     <router-view></router-view>
   </div>
 </template>
@@ -11,10 +10,10 @@ export default {
 }
 </script>
 
-<style lang='scss' scoped>
-@import './style/usage/core/reset';
+<style lang='css' scoped>
+
 #app {
-  @include flexbox();
-  
+    width: 100%;
+    height: 100%;
 }
 </style>
