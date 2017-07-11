@@ -1,7 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
+
 import Index from '@/components/Index'
+import Adv from '@/components/Adv'
+import Main from '@/components/Main'
+import Home from '@/components/Home'
+import Postage from '@/components/Postage'
+import Cart from '@/components/Cart'
+import Money from '@/components/Money'
+import Mine from '@/components/Mine'
 // import index from '/index'
 Vue.use(Router)
 
@@ -14,10 +21,43 @@ export default new Router({
    
     },
      {
-      path: '/home',
-      name: 'home',
-      component: Hello
+      path: '/adv',
+      name: 'adv',
+      component: Adv
    
+    },
+     {
+      path: '/main',
+      name: 'main',
+      component: Main,
+      redirect :'/main/home',
+      children:[
+        {
+          path: 'home',
+          name: 'home',
+          component: Home
+        },
+        {
+          path: 'postage',
+          name: 'postage',
+          component: Postage
+        },
+        {
+          path: 'cart',
+          name: 'cart',
+          component: Cart
+        },
+        {
+          path: 'money',
+          name: 'money',
+          component: Money
+        },
+        {
+          path: 'mine',
+          name: 'mine',
+          component: Mine
+        }
+      ]
     }
   ]
 })

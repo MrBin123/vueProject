@@ -11,9 +11,9 @@ export default {
    
     setTimeout(function() {
       // console.log(this)
-      this.$route.push('/home');
+      this.$router.push('/adv');
     
-    }.bind(this), 1500);
+    }.bind(this), 2000);
   }  
 }
 </script>
@@ -30,7 +30,5 @@ export default {
     width: 100%;
     height: 100%;
   }
-
-  
 }
 </style>
