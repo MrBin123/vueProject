@@ -1,6 +1,6 @@
 <template>
   <div id="index">
-    <img src="../imgs/splash_bg.png">
+    <img src="../imgs/splash_bg.png"/>
   </div>
 </template>
 
@@ -22,7 +22,7 @@ export default {
 //  @import '../style/usage/core/reset';
 #index {
   width : 100%;
-  height:100%;
+  height: 100%;
   // @include flexbox();
   // @include align-items(center);
   // @include justify-content(center);

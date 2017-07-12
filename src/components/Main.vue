@@ -1,13 +1,18 @@
 <template>
     <div id="main">
-        <router-view id="child"></router-view>
+       
+     <router-view></router-view>
+        
+        
         <my-footer></my-footer>
     </div>
 </template>
 
 <script>
 import Footer from './Footer'
+
 export default {
+
    name: 'main',
    components: {
     'my-footer':Footer
@@ -16,6 +21,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
     @import '../style/app.scss';
     #main{
         width: 100%;
@@ -23,10 +29,11 @@ export default {
         background: $base-color;
         @include flexbox();
         @include flex-direction(column);
-        #child{
-            width: 100%;
-            @include flex();
-        }
+        // #child{
+        //     width: 100%;
+        //     @include flexbox();
+          
+        // }
     }
 
 </style>
