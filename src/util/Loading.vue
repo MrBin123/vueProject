@@ -52,5 +52,50 @@ export default {
 	}
 }
 
+@-moz-keyframes loading{
+	0% {
+		background:  url('../imgs/pageload_icon1.png') no-repeat center center;
+        background-size:80% 80%;
+	}
+	25% {
+		background: url('../imgs/pageload_icon2.png') no-repeat center center;
+        background-size:80% 80%;
+	}
+	50% {
+		background: url('../imgs/pageload_icon3.png') no-repeat center center;
+        background-size:80% 80%;
+	}
+	75% {
+		background: url('../imgs/pageload_icon4.png') no-repeat center center;
+        background-size:80% 80%;
+	}
+	100% {
+		background: url('../imgs/pageload_icon1.png') no-repeat center center;
+        background-size:80% 80%; 
+	}
+}
+
+@-webkit-keyframes loading{
+	0% {
+		background:  url('../imgs/pageload_icon1.png') no-repeat center center;
+        background-size:80% 80%;
+	}
+	25% {
+		background: url('../imgs/pageload_icon2.png') no-repeat center center;
+        background-size:80% 80%;
+	}
+	50% {
+		background: url('../imgs/pageload_icon3.png') no-repeat center center;
+        background-size:80% 80%;
+	}
+	75% {
+		background: url('../imgs/pageload_icon4.png') no-repeat center center;
+        background-size:80% 80%;
+	}
+	100% {
+		background: url('../imgs/pageload_icon1.png') no-repeat center center;
+        background-size:80% 80%; 
+	}
+}
 </style>
 
