@@ -13,27 +13,144 @@
     </div>
     
     <ul id='nav'>
-       <li><p>全部</p><b></b></li>
-       <li><p>全国</p><b></b></li>
-       <li><p>销量</p><img src="../imgs/w_productlist_zdjt.png"></img></li>
-       <li><p>价格</p><img src="../imgs/w_productlist_zdjt.png"></img></li>
-       <li><p>积分</p><img src="../imgs/w_productlist_zdjt.png"></img></li>
+       <li @click="change(0)" :class="index"><p >全部</p><b></b></li>
+       <li @click="change(1)" :class="index"><p>全国</p><b></b></li>
+       <li @click="change(2)" :class="index"><p>销量</p><b></b></img></li>
+       <li @click="change(3)" :class="index"><p>价格</p><b></b></li>
+       <li @click="change(4)" :class="index"><p>积分</p><b></b></li>
     </ul>
-   
+       
+       <div id="outer">
+        <mt-loadmore  :bottom-method="loadBottom" ref="loadmore" @bottom-status-change="handleTopChange">     
+          <ul id="shop">
+              <li v-for="(v,i) in result" :key="i">
+                <div>
+                  <img v-lazy="v.picurl"></img>
+                  <b>{{v.goodsname}}</b>
+                  <p><span>￥{{v.price}}</span><span>已售{{v.sellnum}}</span></p>
+                </div>
+              </li>
+          </ul> 
+          <div slot="bottom" class="mint-loadmore-bottom">
+            <span v-show="topStatus === 'pull'" :class="{ 'rotate': topStatus === 'drop' }">加载更多...</span>
+            <span v-show="topStatus === 'loading'">Loading...</span>
+            <span v-show="topStatus === 'drop'">释放更新</span>
+          </div>
+        </mt-loadmore>     
+       </div>  
+       
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
 import load from '../util/Loading';
+import ax from '../util/Axios';
+import { Loadmore } from 'mint-ui';
+import { Lazyload } from 'mint-ui';
+Vue.use(Lazyload);
+import 'mint-ui/lib/style.css'
+Vue.component(Loadmore.name, Loadmore);
 export default {
   name: 'postage',
   data() {
    return {
-      show : true
+      show : true,
+      index :"",
+      result : [],
+      allLoaded: false,
+      topStatus:""
      }
+  },
+  methods:{
+    change: function (index) {
+     
+      switch (index) {
+        case 0:
+          if (this.index === "active1") {
+              this.index = "";
+          }else{
+            this.index="active1";
+          }
+          
+          break;
+        case 1:
+          if (this.index === "active2") {
+              this.index = "";
+          }else{
+            this.index="active2";
+          }
+          break;
+        case 2:
+          if (this.index === "active3") {
+              this.index = "active31";
+          }else{
+            this.index="active3";
+          }
+         
+          break;
+        case 3:
+          if (this.index === "active4") {
+              this.index = "active41";
+          }else{
+            this.index="active4";
+          }
+          break;
+        case 4:
+           if (this.index === "active5") {
+              this.index = "active51";
+          }else{
+            this.index="active5";
+          }
+          break;
+      
+      
+      }
+     
+    },
+      handleTopChange(status) {
+        console.log(status)
+        this.topStatus = status;
+      },
+    loadBottom: function () {
+      console.log("1232133")
+      let that = this;
+      that.show = true;
+      ax.post({
+        url:"/api/index.php/App/ShopGoods/",
+        body: "maxprice=9.9&sign=b053070ba615b4143a26ca04f94d96a7&action=getGoodsList&cityid=&uuid=fd14e57682a18d2af70116bdefbb0224&shopid=&appid=81423&isbaoyou=1&pageindex=2&minprice=9.9&listorder=&clienttype=2&classid=&pagesize=10&keywords=&",
+        cb : function (response) {
+          console.log(response.data.data)
+          that.result = that.result.concat(response.data.data);
+          // console.log("---------------"+this.result)
+          that.show = false;
+          that.$refs.loadmore.onBottomLoaded();
+        }
+      })
+    }
+
   },
   mounted() {
     // this.show = true
+    let that = this;
+    ax.post({
+      url:"/api/index.php/App/ShopGoods/",
+      body: "maxprice=9.9&sign=b053070ba615b4143a26ca04f94d96a7&action=getGoodsList&cityid=&uuid=fd14e57682a18d2af70116bdefbb0224&shopid=&appid=81423&isbaoyou=1&pageindex=1&minprice=9.9&listorder=&clienttype=2&classid=&pagesize=10&keywords=&",
+      cb : function (response) {
+        // console.log(response.data.data);
+        // console.log(this)
+        that.result = response.data.data;
+        // console.log("---------------"+this.result)
+        that.show = false;
+        // this.allLoaded = true;
+        //  that.$refs.loadmore.onBottomLoaded();
+
+        
+      }
+    })
+
+
+
   },
   components: {
     'my-load': load
@@ -47,9 +164,15 @@ export default {
   #postage{
       width: 100%;
       height: 100%;
+      overflow: hidden;
       background: #efefef;
       @include flexbox();
       @include flex-direction(column);
+      #outer{
+        width: 100%;
+          height: 100%;
+          overflow-y: scroll;
+      }
         #head{
           width: 100%;
           height: .4rem;
@@ -66,7 +189,7 @@ export default {
             @include flex(1);
             @include flexbox();
             @include align-items(center);
-            @include justify-content(center);
+         
             img{
               width: .3rem;
               height: .3rem;
@@ -80,6 +203,7 @@ export default {
             @include flexbox();
             @include flex-direction();
             @include align-items(center);
+            @include justify-content(center);
             background: #fcfcfc;
             @include border-radius(10px);
             color: #b1b1b1;
@@ -96,6 +220,7 @@ export default {
           height: .4rem;
           @include flexbox();
           li{
+         
             @include flexbox();
             @include flex();
             @include justify-content(center);
@@ -104,31 +229,164 @@ export default {
             color: #3a3a3a;
             &:nth-child(1) b{
               width: .1rem;
-              height: .08rem;
+              height: .1rem;
               margin-left: .04rem;
               background: url('../imgs/w_productlist_dowm_jt1.png') center center no-repeat;
             }
              &:nth-child(2) b{
               width: .1rem;
-              height: .08rem;
+              height: .1rem;
               margin-left: .04rem;
               background: url('../imgs/w_productlist_dowm_jt1.png') center center no-repeat;
             }
-             &:nth-child(3) img{
+             &:nth-child(3) b{
               width: .1rem;
               height: .12rem;
               margin-left: .04rem;
+               background: url('../imgs/w_productlist_zdjt.png') center center no-repeat;
+               background-size: 100% 100%;
             }
-             &:nth-child(4) img{
+             &:nth-child(4) b{
               width: .1rem;
               height: .12rem;
               margin-left: .04rem;
+               background: url('../imgs/w_productlist_zdjt.png') center center no-repeat;
+               background-size: 100% 100%;
             }
-             &:nth-child(5) img{
+             &:nth-child(5) b{
               width: .1rem;
               height: .12rem;
               margin-left: .04rem;
+               background: url('../imgs/w_productlist_zdjt.png') center center no-repeat;
+               background-size: 100% 100%;
             }
+          &:nth-child(1).active1{
+            color: #ff0200;
+              b{
+               background: url('../imgs/w_productlist_up_jt1.png') center center no-repeat;
+            }
+          }
+           &:nth-child(2).active2{
+            color: #ff0200;
+               b{
+                  background: url('../imgs/w_productlist_up_jt1.png') center center no-repeat;
+                }
+          }
+           &:nth-child(3).active3{
+               b{
+                  background: url('../imgs/w_productlist_dowm_jt_sth.png') center center no-repeat;
+                  background-size: 100% 70%;
+                }
+          }
+          &:nth-child(4).active4{
+               b{
+                  background: url('../imgs/w_productlist_dowm_jt_sth.png') center center no-repeat;
+                  background-size: 100% 70%;
+                }
+          }
+          &:nth-child(5).active5{
+               b{
+                  background: url('../imgs/w_productlist_dowm_jt_sth.png') center center no-repeat;
+                  background-size: 100% 70%;
+                }
+          }
+           &:nth-child(3).active31{
+               b{
+                  background: url('../imgs/w_productlist_up2_jt_sth.png') center center no-repeat;
+                  background-size: 100% 70%;
+                }
+          }
+          &:nth-child(4).active41{
+               b{
+                  background: url('../imgs/w_productlist_up2_jt_sth.png') center center no-repeat;
+                  background-size: 100% 70%;
+                }
+          }
+          &:nth-child(5).active51{
+               b{
+                  background: url('../imgs/w_productlist_up2_jt_sth.png') center center no-repeat;
+                  background-size: 100% 70%;
+                }
+          }
+          
+          }
+        }
+      
+        #shop{
+          @include flex();
+          width: 100%;
+       
+          @include flexbox();
+          @include flex-flow(row wrap);
+          @include justify-content(center);
+          padding: .02rem;
+          overflow: hidden;
+          li{  
+            @include flexbox();
+            margin: .02rem;       
+            width: 48%;
+            
+            @include flex-direction(column);
+            @include align-items(center);
+            @include justify-content(center);
+            background: $base-color;
+            img{
+           
+              width: 100%;
+              // height: 1.5rem;
+              
+            }
+            image[lazy=loading] {
+                width: 100%;
+            
+              margin: auto;
+            }
+          
+          b{
+            width: 100%;
+            height: .38rem;
+            color: #343434;
+            @include ellipsis(null,2);
+            overflow: hidden;
+            font-size: .12rem;
+            text-align: left;
+             font-weight: 200;
+             
+          }
+            p{
+              @include flexbox();
+              width: 100%;
+              height: .3rem;
+              padding:  .04rem;
+              color: #666;
+               
+                 span{
+                    @include border(.02rem 0 0 0 ,#dedede);
+                    width: 100%;
+                    padding: .04rem;
+                    color: #646464;
+                    &:nth-child(1){
+                      width: 50%;
+                      height: 100%;
+                      color: #ce1211;
+                    
+                    }
+                    &:nth-child(2){
+                      width: 50%;
+                      height: 100%;
+                      color: #9e9e9e;
+                      text-align: right;
+                
+              }
+            }
+                   
+            }
+              
+
+
+
+           
+            
           }
         }
     }
