@@ -1,9 +1,9 @@
 <template>
     <div id="main">
-       
+
      <router-view></router-view>
         
-        
+       
         <my-footer></my-footer>
     </div>
 </template>
@@ -29,13 +29,7 @@ export default {
         background: $base-color;
         @include flexbox();
         @include flex-direction(column);
-        // #child{
-        //     width: 100%;
-        //     @include flexbox();
-          
-        // }
+
     }
 
 </style>
-
-
