@@ -58,7 +58,6 @@
             </div>
           </li>
           <div slot="bottom" class="mint-loadmore-bottom">
-            <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }">刷新</span>
             <span v-show="topStatus === 'loading'">Loading...</span>
           </div>
         </ul>
