@@ -1,6 +1,6 @@
 <template>
     <div id="main">
-        <router-view id="child"></router-view>
+        <router-view ></router-view>
         <my-footer></my-footer>
     </div>
 </template>
@@ -16,6 +16,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    @import '../style/usage/core/reset';
     @import '../style/app.scss';
     #main{
         width: 100%;
@@ -23,12 +24,7 @@ export default {
         background: $base-color;
         @include flexbox();
         @include flex-direction(column);
-        #child{
-            width: 100%;
-            @include flex();
-        }
+      
     }
 
 </style>
-
-

@@ -1,1 +1,14 @@
 $base-color:#fff;
+.mint-searchbar{
+  background:none;
+  padding: 0;
+  .mint-searchbar-inner{
+    width:200px;
+    background:#fff;
+    border-radius:5px;
+    .mintui-search{
+      padding-right:5px;
+    }
+  };
+  a{display:none;}
+}
