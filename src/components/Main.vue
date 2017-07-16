@@ -1,7 +1,9 @@
 <template>
     <div id="main">
 
-     <router-view></router-view>
+      <keep-alive>
+       <router-view></router-view>
+    </keep-alive>
         
        
         <my-footer></my-footer>
