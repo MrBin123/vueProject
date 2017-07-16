@@ -11,7 +11,7 @@
       </mt-swipe>
       <!-------------商品分类-------------->
       <ul class="classify">
-        <li v-for="(v,i) in claurl">
+        <li v-for="(v,i) in claurl" :key="i">
           <img :src="v.picurl"/>
           <h4>{{v.classname}}</h4>
         </li>
@@ -31,7 +31,7 @@
           <i>更多></i>
         </div>
         <ul class="nearcompany">
-          <li v-for="com in nearcompany">
+          <li v-for="(com,i) in nearcompany" :key="i">
             <img :src="com.picurl">
             <h5>{{com.shopname}}</h5>
             <div class="pos1">
@@ -50,7 +50,7 @@
         </div>
         <mt-loadmore :bottom-method="loadBottom"  ref="loadmore">
         <ul class="goods">
-          <li v-for="goo in goods">
+          <li v-for="(goo,i) in goods" :key="i">
             <img :src="goo.picurl">
             <p>{{goo.goodsname}}</p>
             <div class="price">
@@ -108,7 +108,7 @@ export default {
         data:'pageindex='+this.index+ '&sign=9fd4947143dcd05fc525df7cd7ec0a05&action=getHotGoods&pagesize=10&appid=81427&uuid=d2912dc6692e1654b6bb93b8a7be8c33&clienttype=2&'
       })
       .then(responseData=>{
-        this.goods=responseData.data.data
+        this.goods=this.goods.concat(responseData.data.data)
       })
       this.allLoaded = true;// 若数据已全部获取完毕
       this.$refs.loadmore.onBottomLoaded();
