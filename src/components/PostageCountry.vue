@@ -5,7 +5,7 @@
                 <li v-for="(v,i) in 12" :key="i" >包头市</li>
             </ul>
             <div id="changecity">
-                <p><span>当前城市:</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>阿拉善盟</span><img src="../imgs/icon_go_right.png"></img><span>更换</span></p>
+                <p><span>当前城市:</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{city? city:'北京市'}}</span><img src="../imgs/icon_go_right.png"></img><span @click="change">更换</span></p>
             </div>
         </div>
         <div id="postage-country-bottom"></div>
@@ -18,7 +18,19 @@ export default {
       return {
           citys: ""
       }
-  }
+  },
+   methods:{
+     change(){
+
+      this.$router.push('/location');
+     }
+
+  },
+   computed:{
+      city(){
+        return this.$store.state.cityname
+      }
+    }
 }
 </script>
 <style lang="scss" scoped>

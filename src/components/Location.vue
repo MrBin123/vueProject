@@ -2,8 +2,8 @@
   <div class="location">
       <div class="loc-header">
         <mt-header>
-            <router-link to="/main" slot="left">
-                <mt-button icon="back"></mt-button>
+            <router-link to="" slot="left">
+                <mt-button icon="back" @click="back"></mt-button>
             </router-link>
         </mt-header>
         <mt-search v-model="value" 
@@ -77,6 +77,10 @@ export default {
     setlocation:function(cityname){
         this.$store.commit('increment' , cityname);
         this.$router.push({name:'home'});
+    },
+    back: function () {
+        // console.log("点击")
+        this.$router.go(-1);
     }
   },
   mounted(){

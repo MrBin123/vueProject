@@ -2,10 +2,10 @@
   <div id="postage">
     <my-load v-show="show"></my-load>
     <my-postage v-show="showAll" :postagesall="postages"  @fromPostageAll="getData" @classid="getClassID"></my-postage>
-      <!-- <my-postage-country></my-postage-country>   -->
+        <my-postage-country v-show="allcountrys"></my-postage-country>    
     <div id="head">
       <p id="space"></p>
-      <div id="search">
+      <div id="search" @click="search">
         <img src="../imgs/lib_story_img_search_bt.png"></img>
         <p>搜索商品/店铺</p>
       </div>
@@ -63,6 +63,7 @@ export default {
   data() {
    return {
       show : false,
+      allcountrys: false,
       index :"",
       result : [],
       allLoaded: false,
@@ -76,6 +77,9 @@ export default {
      }
   },
   methods:{
+    search: function () {
+      this.$router.push('/search');
+    },
     getClassID: function (obj) {
        this.$store.commit('changeid',"");
        this.change(0);
@@ -128,6 +132,7 @@ export default {
       switch (index) {
         case 0:
         //全部
+          this.allcountrys = false;
           if (this.index === "active1") {
               this.index = "";
           }else{
@@ -138,6 +143,8 @@ export default {
           break;
         case 1:
         //全国
+        this.showAll = false;
+         this.allcountrys = !this.allcountrys;
           if (this.index === "active2") {
               this.index = "";
           }else{
@@ -147,6 +154,7 @@ export default {
         case 2:
         //销量
           this.showAll = false;
+          this.allcountrys=false;
           this.pageindex=1;
           this.checked={
              selectid: "2",
@@ -185,7 +193,7 @@ export default {
           break;
         case 3:
         //价格
-     
+           this.allcountrys=false;
           this.showAll = false;
           this.pageindex=1;
           this.checked={
@@ -224,7 +232,7 @@ export default {
           break;
         case 4:
         //积分
-        
+           this.allcountrys=false;
           this.showAll = false;
           this.pageindex=1;
           this.checked={
@@ -288,10 +296,12 @@ export default {
       }else if (this.checked.selectid == "4") {
         //积分排序
          body="maxprice=9.9&sign=b053070ba615b4143a26ca04f94d96a7&action=getGoodsList&cityid=&uuid=fd14e57682a18d2af70116bdefbb0224&shopid=&appid=81423&isbaoyou=1&pageindex="+this.pageindex+"&minprice=9.9&listorder="+this.checked.listorder+"&clienttype=2&classid=&pagesize=10&keywords=&";
+      }else if (this.checked.selectid == "5") {
+        //首页面传值加载更多
+         body="maxprice=&sign=b053070ba615b4143a26ca04f94d96a7&action=getGoodsList&cityid=&uuid=fd14e57682a18d2af70116bdefbb0224&shopid=&appid=81423&isbaoyou=&pageindex="+this.pageindex+"&minprice=&listorder=&clienttype=2&classid="+this.checked.classid+"&pagesize=10&keywords=&";
       }
       // let body = "maxprice=9.9&sign=b053070ba615b4143a26ca04f94d96a7&action=getGoodsList&cityid=&uuid=fd14e57682a18d2af70116bdefbb0224&shopid=&appid=81423&isbaoyou=1&pageindex="+this.pageindex+"&minprice=9.9&listorder=&clienttype=2&classid=&pagesize=10&keywords=&";
-  // body: "maxprice=9.9&sign=b053070ba615b4143a26ca04f94d96a7&action=getGoodsList&cityid=&uuid=fd14e57682a18d2af70116bdefbb0224&shopid=&appid=81423&isbaoyou=1&pageindex=1&minprice=9.9&listorder=&clienttype=2&classid="+obj.classid+"&pagesize=10&keywords=&",
-     
+
       ax.post({
         url:"/api/index.php/App/ShopGoods/",
         body: body,
@@ -314,7 +324,6 @@ export default {
      //
 
     }
-
   },
   mounted() {
     this.show = true
@@ -362,11 +371,40 @@ export default {
   },
   computed:{
     claid(){
-         console.log("----------"+this.$store.state.claid)
+        //  console.log("----------"+this.$store.state.claid)
         //  this.change(0);
-        console.log(this)
-     
-      return this.$store.state.claid;
+        // console.log( this.$store.state.claname)
+        if (this.$store.state.claname == undefined) {
+            return "";
+        }
+        // this.change(0);
+        this.allcountrys=false;
+        this.showAll = false;
+        this.pageindex=1;
+        this.checked={
+            selectid: "5",
+            classid:this.$store.state.claid
+        };
+        let that = this;
+        that.show = true;
+           ax.post({
+              url:"/api/index.php/App/ShopGoods/",
+              body: "maxprice=&sign=b053070ba615b4143a26ca04f94d96a7&action=getGoodsList&cityid=&uuid=fd14e57682a18d2af70116bdefbb0224&shopid=&appid=81423&isbaoyou=&pageindex=1&minprice=&listorder=&clienttype=2&classid="+this.$store.state.claid+"&pagesize=10&keywords=&",
+              cb : function (response) {
+                // console.log(response)
+                if (response.data.data != "") {
+                  that.result = response.data.data;
+                }else{
+                  Toast({
+                    message: '我是有底线的!',
+                    position: 'bottom',
+                    duration: 1000
+                  });
+                }
+                that.show = false;
+              }
+            })
+      return this.$store.state.claname.substr(0,2);
     }
   }
 
