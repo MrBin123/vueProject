@@ -42,7 +42,6 @@
           </div>
         </mt-loadmore>
        </div>
-
   </div>
 </template>
 
@@ -91,8 +90,8 @@ export default {
               that.show = false;
               that.pageindex=1;
               that.checked={
-                selectid: "0",
-                classid:obj.classid
+              selectid: "0",
+              classid:obj.classid
               };
             }
           })
@@ -144,7 +143,6 @@ export default {
           break;
         case 2:
         //销量
-          this.index = "";
           this.showAll = false;
           this.pageindex=1;
           this.checked={
@@ -179,13 +177,13 @@ export default {
                   });
                 }
                 that.show = false;
-              that.$refs.loadmore.onBottomLoaded();
+           
               }
             })
           break;
         case 3:
         //价格
-         this.index = "";
+          
           this.showAll = false;
           this.pageindex=1;
           this.checked={
@@ -219,13 +217,13 @@ export default {
                   });
                 }
                 that.show = false;
-              that.$refs.loadmore.onBottomLoaded();
+            
               }
             })
           break;
         case 4:
         //积分
-         this.index = "";
+        
           this.showAll = false;
           this.pageindex=1;
           this.checked={
@@ -258,7 +256,6 @@ export default {
                   });
                 }
                 that.show = false;
-              that.$refs.loadmore.onBottomLoaded();
               }
             })
           break;
@@ -529,7 +526,7 @@ export default {
           li{
             @include flexbox();
             margin: .02rem;
-            width: 48%;
+            width: 48.6%;
             // height: 280px;
             @include flex-direction(column);
             @include align-items(center);
@@ -579,7 +576,5 @@ export default {
               }
             }     
             }
-          }
-        }
     }
 </style>
