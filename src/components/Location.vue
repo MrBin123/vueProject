@@ -75,7 +75,7 @@ export default {
   },
   methods:{
     setlocation:function(cityname){
-        this.$store.commit('increment',cityname);
+        this.$store.commit('increment' , cityname);
         this.$router.push({name:'home'});
     }
   },

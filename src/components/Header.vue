@@ -26,10 +26,10 @@
       }
     },
     computed:{
-     city(){
-       return this.$store.state.cityname
-     }
-    },
+      city(){
+        return this.$store.state.cityname
+      }
+    }
   }
 </script>
 

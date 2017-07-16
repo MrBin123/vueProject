@@ -5,18 +5,24 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    cityname: ''
+    cityname: '',
+    claid:'',
+    selectid:0,
   },
   mutations: {
     increment(state, payload) {
         state.cityname = payload;
-        console.log(state.cityname)
+    },
+    changeid(state,payload){
+      state.claid=payload;
+      console.log(state.claid)
+    },
+    changeselect(state,payload){
+      state.selectid=payload;
+      console.log(typeof payload)
+      console.log(state.selectid)
     }
-  },
-//   actions: {
-//     addRating(context, payload) {
-//     }
-//   }
+  }
 })
 
 export default store
