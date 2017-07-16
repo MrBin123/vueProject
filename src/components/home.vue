@@ -1,5 +1,6 @@
 <template>
   <div id="home">
+    <my-loading v-show="show"></my-loading>
     <!-----------------------头部------------------------>
     <my-header></my-header>
     <!-----------------------可滚动区域------------------------>
@@ -69,7 +70,7 @@
 </template>
 
 <script>
-
+import ani from '../util/Loading.vue'
 import axios from 'axios';
 import Vue from 'vue';
 import { Swipe, SwipeItem } from 'mint-ui';
@@ -83,7 +84,8 @@ Vue.component(SwipeItem.name, SwipeItem);
 export default {
   name: 'Home',
   components:{
-    'my-header':Header
+    'my-header':Header,
+    'my-loading':ani
   },
   data(){
     return {
@@ -94,6 +96,7 @@ export default {
       goods:[],
       topStatus:'',
       index:1,
+      show:true
     }
   },
   methods:{
@@ -127,6 +130,7 @@ export default {
       this.claurl=responseData.data.data.goodsclass;
       this.homead=responseData.data.data.homeads;
       this.indexad=responseData.data.data.indexad[0];
+      this.show=false;
     })
     axios({
       url:'/appapi/index.php/App/ShopGoods/',
@@ -138,6 +142,7 @@ export default {
     })
     .then(responseData=>{
       this.nearcompany=responseData.data.data;
+      this.show=false;      
     })
     axios({
       url:'/appapi/index.php/App/ShopGoods/',
@@ -147,8 +152,9 @@ export default {
       },
       data:'pageindex=1&sign=9fd4947143dcd05fc525df7cd7ec0a05&action=getHotGoods&pagesize=10&appid=81427&uuid=d2912dc6692e1654b6bb93b8a7be8c33&clienttype=2&'
     })
-    .then(responseData=>{
-      this.goods=responseData.data.data
+    .then(responseData=>{ 
+      this.goods=responseData.data.data;
+      this.show=false;
     })
 
   }

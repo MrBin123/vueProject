@@ -13,7 +13,7 @@
         <img src="../imgs/w_more.png"></img>
       </p>
     </div>
-    
+
     <ul id='nav'>
        <li @click="change(0)" :class="index"><p>{{selectAll}}</p><b></b></li>
        <li @click="change(1)" :class="index"><p>全国</p><b></b></li>
@@ -21,9 +21,11 @@
        <li @click="change(3)" :class="index"><p>价格</p><b></b></li>
        <li @click="change(4)" :class="index"><p>积分</p><b></b></li>
     </ul>
-       
+
        <div id="outer">
+
         <mt-loadmore  :bottom-method="loadBottom" ref="loadmore" :autoFill="false" @bottom-status-change="handleTopChange">     
+
           <ul id="shop">
               <li v-for="(v,i) in result" :key="i">
                 <div>
@@ -32,15 +34,15 @@
                   <p><span>￥{{v.price}}</span><span>已售{{v.sellnum}}</span></p>
                 </div>
               </li>
-          </ul> 
+          </ul>
           <div slot="bottom" class="mint-loadmore-bottom">
             <span v-show="topStatus === 'pull'" :class="{ 'rotate': topStatus === 'drop' }">加载更多...</span>
             <span v-show="topStatus === 'loading'">Loading...</span>
             <span v-show="topStatus === 'drop'">释放更新</span>
           </div>
-        </mt-loadmore>     
-       </div>  
-       
+        </mt-loadmore>
+       </div>
+
   </div>
 </template>
 
@@ -261,7 +263,7 @@ export default {
             })
           break;
       }
-     
+
     },
       handleTopChange(status) {
         // console.log(status)
@@ -354,9 +356,6 @@ export default {
         
       }
     })
-
-  
-
   },
   components: {
     'my-load': load,
@@ -401,9 +400,7 @@ export default {
             img{
               width: .3rem;
               height: .3rem;
-             
             }
-            
           }
           #search{
             height: .26rem;
@@ -415,7 +412,6 @@ export default {
             background: #fcfcfc;
             @include border-radius(10px);
             color: #b1b1b1;
-        
           img{
             width: .2rem;
             height: .2rem;
@@ -429,7 +425,6 @@ export default {
           height: .5rem;
           @include flexbox();
           li{
-         
             @include flexbox();
             @include flex();
             @include justify-content(center);
@@ -520,21 +515,20 @@ export default {
                   background-size: 100% 70%;
                 }
           }
-          
+
           }
         }
         #shop{
           @include flex();
           width: 100%;
-          
           @include flexbox();
           @include flex-flow(row wrap);
           // @include justify-content(center);
           padding: .02rem;
           overflow: hidden;
-          li{  
+          li{
             @include flexbox();
-            margin: .02rem;       
+            margin: .02rem;
             width: 48%;
             // height: 280px;
             @include flex-direction(column);
@@ -542,16 +536,13 @@ export default {
             @include justify-content(center);
             background: $base-color;
             img{
-           
               width: 100%;
               // height: 1.5rem;
-              
             }
             image[lazy=loading] {
                 width: 100%;
               margin: auto;
             }
-          
           b{
             width: 100%;
             height: .38rem;
@@ -561,7 +552,6 @@ export default {
             font-size: .12rem;
             text-align: left;
              font-weight: 200;
-             
           }
             p{
               @include flexbox();
@@ -569,7 +559,6 @@ export default {
               height: .3rem;
               padding:  .04rem;
               color: #666;
-               
                  span{
                     @include border(.02rem 0 0 0 ,#dedede);
                     width: 100%;
@@ -579,24 +568,18 @@ export default {
                       width: 50%;
                       height: 100%;
                       color: #ce1211;
-                    
                     }
                     &:nth-child(2){
                       width: 50%;
                       height: 100%;
                       color: #9e9e9e;
                       text-align: right;
-                
+                    }
+                  }
               }
+            }     
             }
-                   
-            }
-            
           }
         }
     }
-
-
-  
-
 </style>

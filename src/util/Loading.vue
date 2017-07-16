@@ -27,7 +27,7 @@ export default {
         animation: loading .8s infinite linear;
     }
    }
-  
+
 
 @keyframes  loading{
 	0% {
@@ -48,7 +48,7 @@ export default {
 	}
 	100% {
 		background: url('../imgs/pageload_icon1.png') no-repeat center center;
-        background-size:80% 80%; 
+        background-size:80% 80%;
 	}
 }
 
@@ -71,7 +71,7 @@ export default {
 	}
 	100% {
 		background: url('../imgs/pageload_icon1.png') no-repeat center center;
-        background-size:80% 80%; 
+        background-size:80% 80%;
 	}
 }
 
@@ -94,8 +94,7 @@ export default {
 	}
 	100% {
 		background: url('../imgs/pageload_icon1.png') no-repeat center center;
-        background-size:80% 80%; 
+        background-size:80% 80%;
 	}
 }
 </style>
-

@@ -1,9 +1,9 @@
 <template>
   <header class="home-header">
-    <div class="pos">
+    <router-link class="pos" to="/location">
       <img src="../imgs/w_gold_address_icon.png">
-      <span>北京市</span>
-    </div>
+      <span>{{city? city:'北京市'}}</span>
+    </router-link>
     <div class="hunt">
       <mt-search v-model="value" cancel-text="取消" placeholder="请输入你想要的"></mt-search>
     </div>
@@ -21,10 +21,16 @@
   export default{
     name:'Header',
     data(){
-    return {
-    value: ''
-    }
-    }
+      return {
+      value: '',
+      city: this.$store.state.cityname
+      }
+    },
+    method:{
+      // setlocation:function(){
+      //   this.$router.push({name:'location',params:'');
+      // }
+    },
   }
 </script>
 
