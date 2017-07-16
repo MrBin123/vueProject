@@ -12,7 +12,7 @@
       </mt-swipe>
       <!-------------商品分类-------------->
       <ul class="classify">
-        <li v-for="(v,i) in claurl" :key="i">
+        <li v-for="(v,i) in claurl" :key="i" @click="setclaid(v.classid)">
           <img :src="v.picurl"/>
           <h4>{{v.classname}}</h4>
         </li>
@@ -115,6 +115,11 @@ export default {
       })
       this.allLoaded = true;// 若数据已全部获取完毕
       this.$refs.loadmore.onBottomLoaded();
+    },
+    setclaid(classid){
+      this.$router.push('/main/postage');
+        //  window.location.href="/main/postage"
+      this.$store.commit('changeid',classid)
     }
   },
   mounted(){
@@ -130,6 +135,7 @@ export default {
       this.claurl=responseData.data.data.goodsclass;
       this.homead=responseData.data.data.homeads;
       this.indexad=responseData.data.data.indexad[0];
+      console.log(responseData.data.data)
       this.show=false;
     })
     axios({
