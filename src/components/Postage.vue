@@ -15,7 +15,8 @@
     </div>
 
     <ul id='nav'>
-       <li @click="change(0)" :class="index"><p>{{selectAll}}</p><b></b></li>
+       <li @click="change(0)" :class="index" v-if="claid"><p>{{claid}}</p><b></b></li>
+       <li @click="change(0)" :class="index" v-else><p> {{selectAll}}</p><b></b></li>
        <li @click="change(1)" :class="index"><p>全国</p><b></b></li>
        <li @click="change(2)" :class="index"><p>销量</p><b></b></img></li>
        <li @click="change(3)" :class="index"><p>价格</p><b></b></li>
@@ -77,6 +78,7 @@ export default {
   },
   methods:{
     getClassID: function (obj) {
+       this.$store.commit('changeid',"");
        this.change(0);
        this.selectAll=obj.name;
        this.showAll = false;
@@ -100,6 +102,7 @@ export default {
     getData:function (data) {
       // console.log(data);
       //全部分类
+      this.$store.commit('changeid',"");
       if (data == "1") {
         this.selectAll="全部";
          this.showAll = !this.showAll;
@@ -144,7 +147,6 @@ export default {
           break;
         case 2:
         //销量
-          this.index = "";
           this.showAll = false;
           this.pageindex=1;
           this.checked={
@@ -179,13 +181,12 @@ export default {
                   });
                 }
                 that.show = false;
-              that.$refs.loadmore.onBottomLoaded();
               }
             })
           break;
         case 3:
         //价格
-         this.index = "";
+      
           this.showAll = false;
           this.pageindex=1;
           this.checked={
@@ -219,13 +220,12 @@ export default {
                   });
                 }
                 that.show = false;
-              that.$refs.loadmore.onBottomLoaded();
               }
             })
           break;
         case 4:
         //积分
-         this.index = "";
+        
           this.showAll = false;
           this.pageindex=1;
           this.checked={
@@ -258,7 +258,6 @@ export default {
                   });
                 }
                 that.show = false;
-              that.$refs.loadmore.onBottomLoaded();
               }
             })
           break;
@@ -361,6 +360,15 @@ export default {
     'my-load': load,
     'my-postage':postageAll,
     'my-postage-country':postageCountry
+  },
+  computed:{
+    claid(){
+         console.log("----------"+this.$store.state.claid)
+        //  this.change(0);
+        console.log(this)
+     
+      return this.$store.state.claid;
+    }
   }
 
 }
@@ -579,7 +587,5 @@ export default {
               }
             }     
             }
-          }
-        }
     }
 </style>

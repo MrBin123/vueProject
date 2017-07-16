@@ -1,11 +1,11 @@
 <template>
     <div id="footer">
         <ul>
-          <router-link to="/main/home" tag="li" active-class="active" @click.native="onChange(0)"><img :src="home"/></router-link>
-          <router-link to="/main/postage" tag="li" active-class="active" @click.native="onChange(1)"><img :src="postage"/></router-link>
-          <router-link to="/main/cart" tag="li" active-class="active" @click.native="onChange(2)"><img :src="cart"/></router-link>
-          <router-link to="/main/money" tag="li" active-class="active"  @click.native="onChange(3)"><img :src="money"/></router-link>
-          <router-link to="/main/mine" tag="li" active-class="active"  @click.native="onChange(4)"><img :src="mine"/></router-link>
+          <router-link to="/main/home" tag="li"  active-class="active" @click.native="onChange(0)"><img :src="home"/></router-link>
+          <router-link to="/main/postage" tag="li"  active-class="active" @click.native="onChange(1)"><img :src="postage"/></router-link>
+          <router-link to="/main/cart" tag="li"  active-class="active" @click.native="onChange(2)"><img :src="cart"/></router-link>
+          <router-link to="/main/money" tag="li"  active-class="active"  @click.native="onChange(3)"><img :src="money"/></router-link>
+          <router-link to="/main/mine" tag="li"   active-class="active"  @click.native="onChange(4)"><img :src="mine"/></router-link>
         </ul>
     </div>
 </template>
@@ -22,6 +22,13 @@ export default {
      money: require("../imgs/main_bottom_tab_faxian_focus.png"),
      mine: require("../imgs/main_bottom_tab_personal_focus.png")
    }
+  },
+  computed:{
+    change(){
+      console.log("zhixing")
+      this.onChange(parseInt(this.$store.state.selectid));
+      return this.$store.state.selectid;
+    }
   },
   methods: {
     onChange: function(index){

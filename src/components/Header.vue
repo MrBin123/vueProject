@@ -22,15 +22,14 @@
     name:'Header',
     data(){
       return {
-      value: '',
-      city: this.$store.state.cityname
+      value: ''
       }
     },
-    method:{
-      // setlocation:function(){
-      //   this.$router.push({name:'location',params:'');
-      // }
-    },
+    computed:{
+      city(){
+        return this.$store.state.cityname
+      }
+    }
   }
 </script>
 
