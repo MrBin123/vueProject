@@ -376,9 +376,8 @@ export default {
         // console.log( this.$store.state.claname)
         if (this.$store.state.claname == undefined) {
             return "";
-        }
-        // this.change(0);
-        this.allcountrys=false;
+        }else{
+           this.allcountrys=false;
         this.showAll = false;
         this.pageindex=1;
         this.checked={
@@ -404,6 +403,9 @@ export default {
                 that.show = false;
               }
             })
+        }
+        // this.change(0);
+       
       return this.$store.state.claname.substr(0,2);
     }
   }

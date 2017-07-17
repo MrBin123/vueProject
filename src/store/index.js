@@ -8,7 +8,8 @@ const store = new Vuex.Store({
     cityname: '',
     claid:'',
     claname:'',
-    homeadv: ''
+    homeadv: '',
+    keyword:""
   },
   mutations: {
     increment(state, payload) {
@@ -18,6 +19,9 @@ const store = new Vuex.Store({
       state.claid=payload.classid;
       state.claname=payload.classname;
       // console.log(state.claid)
+    },
+    getkeyworld(state,payload){
+      state.keyword=payload;
     }
   }
 })
