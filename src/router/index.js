@@ -16,6 +16,8 @@ import Detail from '@/components/Detail'
 import Homeadv from '@/components/Homeadv'
 import Search from '@/components/Search'
 
+import SearchResult from '@/components/SearchResult'
+
 // import index from '/index'
 Vue.use(Router)
 
@@ -37,6 +39,11 @@ export default new Router({
       path:'/search',
       name:'search',
       component: Search
+    },
+    {
+      path:'/searchresult',
+      name:'searchresult',
+      component: SearchResult
     },
     {
       path:'/location',

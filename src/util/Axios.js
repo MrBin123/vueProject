@@ -4,7 +4,7 @@ import axios from 'axios'
 const Axios = {
     get : function (obj) {
         axios.get(obj.url)
-        .then(function (response) {
+        .then(function (response) {   
             // console.log(response);
             obj.cb(response);
         })

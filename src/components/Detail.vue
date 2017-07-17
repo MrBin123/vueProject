@@ -37,15 +37,11 @@ export default {
       return {
         gooddetail:{},
         slidepic:[]
+   
       }
   },
   mounted(){
-      
-  },
-  computed:{
-    id(){
-        let id = this.$store.state.goodsid;
-        axios({
+    axios({
           url:'/appapi/index.php/App/ShopGoods/',
           method:'post',
           headers:{
@@ -57,6 +53,12 @@ export default {
         this.slidepic=this.gooddetail.slidepicurls;
         console.log(this.gooddetail);
       })
+      
+  },
+  computed:{
+    id(){
+        return this.$store.state.goodsid;
+        
     }
     
   },

@@ -8,11 +8,11 @@ const store = new Vuex.Store({
     cityname: '',
     claid:'',
     claname:'',
-
-    goodsid:'',
-
-    homeadv: ''
-
+    homeadv: '',
+    keyword:"",
+    goodsid:"",
+    homeadv: '',
+    selectid:""
   },
   mutations: {
     increment(state, payload) {
@@ -21,6 +21,10 @@ const store = new Vuex.Store({
     changeid(state,payload){
       state.claid=payload.classid;
       state.claname=payload.classname;
+      // console.log(state.claid)
+    },
+    getkeyworld(state,payload){
+      state.keyword=payload;
 
     },
     changeselect(state,payload){
