@@ -10,9 +10,9 @@ const store = new Vuex.Store({
     claname:'',
     homeadv: '',
     keyword:"",
-
-    homeadv: ''
-
+    goodsid:"",
+    homeadv: '',
+    selectid:""
   },
   mutations: {
     increment(state, payload) {

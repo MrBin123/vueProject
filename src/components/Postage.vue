@@ -28,7 +28,7 @@
         <mt-loadmore  :bottom-method="loadBottom" ref="loadmore" :autoFill="false" @bottom-status-change="handleTopChange">     
 
           <ul id="shop">
-              <li v-for="(v,i) in result" :key="i">
+              <li v-for="(v,i) in result" :key="i" @click="toDetail(v.listid)">
                 <div>
                   <img v-lazy="v.picurl"></img>
                   <b>{{v.goodsname}}</b>
@@ -77,6 +77,12 @@ export default {
      }
   },
   methods:{
+    toDetail(listid){
+      console.log("listid="+listid)
+      //商品详情
+      this.$router.push({name:"detail",params:{listid}});
+
+    },
     search: function () {
       this.$router.push('/search');
     },
@@ -309,7 +315,7 @@ export default {
           // console.log(response)
           if (response.data.data != "") {
             that.result = that.result.concat(response.data.data);
-             
+            // console.log(that.result)
           }else{
             Toast({
               message: '我是有底线的!',

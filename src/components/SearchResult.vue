@@ -12,7 +12,7 @@
         <mt-loadmore  :bottom-method="loadBottom" ref="loadmore" :autoFill="false" @bottom-status-change="handleTopChange">     
 
           <ul id="shop">
-              <li v-for="(v,i) in result" :key="i">
+              <li v-for="(v,i) in result" :key="i" @click="toDetail(v.listid)">
                 <div>
                   <img v-lazy="v.picurl"></img>
                   <b>{{v.goodsname}}</b>
@@ -50,6 +50,9 @@ export default {
     }
   },
   methods:{
+    toDetail: function (listid) {
+       this.$router.push({name:"detail",params:{listid}});
+    },
     back: function () {
       this.$router.go(-1);
     },
@@ -101,7 +104,7 @@ export default {
                     duration: 1000
                   });
                 }
-                that.$refs.loadmore.onBottomLoaded();
+                // that.$refs.loadmore.onBottomLoaded();
        }
     })
         return this.$store.state.keyword;
