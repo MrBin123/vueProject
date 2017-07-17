@@ -1,5 +1,6 @@
 <template>
   <div id="home">
+    <img id="gotop" src="../imgs/btn_go_top.png" @click="gotop"></img>
     <my-loading v-show="show"></my-loading>
     <!-----------------------头部------------------------>
     <my-header></my-header>
@@ -12,7 +13,7 @@
       </mt-swipe>
       <!-------------商品分类-------------->
       <ul class="classify">
-        <li v-for="(v,i) in claurl" :key="i" @click="setclass(v)">
+        <li v-for="(v,i) in claurl" :key="i" @click="setclass(v,i)">
           <img :src="v.picurl"/>
           <h4>{{v.classname}}</h4>
         </li>
@@ -100,6 +101,12 @@ export default {
     }
   },
   methods:{
+    gotop: function () {
+      console.log("gotop")
+      console.log(this)
+      // document.documentElement.scrollTop = 0;
+      
+    },
     setadvs(data,index){
        if (index == 1) {
         //  window.location.href=data;
@@ -133,10 +140,19 @@ export default {
       this.allLoaded = true;// 若数据已全部获取完毕
       this.$refs.loadmore.onBottomLoaded();
     },
-    setclass(cla){
-      this.$router.push('/main/postage');
+    setclass(cla,index){
+      console.log(cla,index)  
+      if (index == 6) {
+        console.log("线下实体店")
+        this.$router.push('/offline');
+      }else if (index == 7) {
+          console.log("更多")
 
-      this.$store.commit('changeid',cla)
+      }else{
+        this.$router.push('/main/postage');
+        this.$store.commit('changeid',cla)
+      }
+     
     },
     getlistid(listid){
       this.$router.push({name:'detail',params:{listid}})
@@ -200,6 +216,14 @@ export default {
       @include flex();
       @include flexbox();
       width:100%;
+      #gotop{
+        position: absolute;
+        width: 36px;
+        height: 36px;
+        z-index: 999;
+        right: .1rem;
+        bottom: .6rem;
+      }
       .scro{
         overflow:scroll;
         @include flex-direction(column);
