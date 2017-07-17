@@ -23,13 +23,6 @@ export default {
      mine: require("../imgs/main_bottom_tab_personal_focus.png")
    }
   },
-  computed:{
-    change(){
-      console.log("zhixing")
-      this.onChange(parseInt(this.$store.state.selectid));
-      return this.$store.state.selectid;
-    }
-  },
   methods: {
     onChange: function(index){
         switch (index) {

@@ -17,7 +17,6 @@
   import Vue from 'vue'
   import { Search } from 'mint-ui';
   Vue.component(Search.name, Search);
-
   export default{
     name:'Header',
     data(){
@@ -35,8 +34,6 @@
 
 <style lang="scss" scoped>
   @import '../style/app';
-
-
   .home-header{
     @include flexbox();
     height:.4rem;

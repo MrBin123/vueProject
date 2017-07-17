@@ -19,10 +19,10 @@
       </ul>
       <!-------------广告-------------->
       <div class="homeads">
-        <img class="xxx" :src="homead.leftadpic"></img>
-        <img class="xx" :src="homead.rightad1pic"></img>
-        <img class="x" :src="homead.rightad2pic"></img>
-        <img class="x" :src="homead.rightad3pic"></img>
+        <img class="xxx" :src="homead.leftadpic" @click="setadvs(homead.leftadurl,0)"></img>
+        <img class="xx" :src="homead.rightad1pic" @click="setadvs(homead.rightad1url,1)"></img>
+        <img class="x" :src="homead.rightad2pic" @click="setadvs(homead.rightad2url,2)"></img>
+        <img class="x" :src="homead.rightad3pic" @click="setadvs(homead.rightad3url,3)"></img>
       </div>
       <!-------------加盟企业-------------->
       <div class="company">
@@ -100,6 +100,23 @@ export default {
     }
   },
   methods:{
+    setadvs(data,index){
+       if (index == 1) {
+        //  window.location.href=data;
+        // console.log(data)
+        this.$store.homeadv=data;
+        this.$router.push('/homeadv');
+        }else{
+         console.log(data)
+         console.log(data.split(":"))
+         let arr = data.split(":");
+         this.$store.commit('changeid',{
+           classid: arr[1],
+           classname: arr[2]
+         })
+        this.$router.push('/main/postage');
+       }
+    },
     loadBottom() {
       this.index += 1;
       axios({
@@ -118,11 +135,13 @@ export default {
     },
     setclass(cla){
       this.$router.push('/main/postage');
+
       this.$store.commit('changeid',cla)
     },
     setgoods(goods){
       this.$store.commit('getgoods',goods);
       this.$router.push('/detail')
+
     }
   },
   mounted(){
