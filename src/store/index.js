@@ -9,7 +9,10 @@ const store = new Vuex.Store({
     claid:'',
     claname:'',
     homeadv: '',
-    keyword:""
+    keyword:"",
+
+    homeadv: ''
+
   },
   mutations: {
     increment(state, payload) {
@@ -22,6 +25,14 @@ const store = new Vuex.Store({
     },
     getkeyworld(state,payload){
       state.keyword=payload;
+
+    },
+    changeselect(state,payload){
+      state.selectid=payload;
+    },
+    getgoods(state,payload){
+      state.goodsid=payload.listid;
+
     }
   }
 })

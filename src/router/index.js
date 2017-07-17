@@ -10,9 +10,14 @@ import Cart from '@/components/Cart'
 import Money from '@/components/Money'
 import Mine from '@/components/Mine'
 import Location from '@/components/Location'
+
+import Detail from '@/components/Detail'
+
 import Homeadv from '@/components/Homeadv'
 import Search from '@/components/Search'
+
 import SearchResult from '@/components/SearchResult'
+
 // import index from '/index'
 Vue.use(Router)
 
@@ -49,6 +54,11 @@ export default new Router({
       path:'/homeadv',
       name:'homeadv',
       component: Homeadv
+    },
+    {
+      path:'/detail',
+      name:'detail',
+      component:Detail
     },
      {
       path: '/main',
