@@ -1,7 +1,7 @@
 <template>
   <div id="searchall">
     <div id="head">
-      <img id="space" src="../imgs/ic_chakanline_back.png" @click="back"></img>
+      <img id="space" src="../imgs/w_back_page.png" @click="back"></img>
       <div id="search" >
         <img src="../imgs/lib_story_img_search_bt.png"></img>
         <input type="text" placeholder="请输入你想要的" v-model="value"/>

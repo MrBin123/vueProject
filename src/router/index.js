@@ -17,7 +17,7 @@ import Homeadv from '@/components/Homeadv'
 import Search from '@/components/Search'
 
 import SearchResult from '@/components/SearchResult'
-
+import OfflineResult from '@/components/OfflineResult'
 // import index from '/index'
 Vue.use(Router)
 
@@ -59,6 +59,11 @@ export default new Router({
       path:'/detail/:id',
       name:'detail',
       component:Detail
+    },
+     {
+      path:'/offline',
+      name:'offline',
+      component:OfflineResult
     },
      {
       path: '/main',

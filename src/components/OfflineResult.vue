@@ -1,22 +1,23 @@
 <template>
-  <div id="searchresult">
-    <div id="head" @click="back">
-      <img id="space" src="../imgs/w_back_page.png"></img>
-      <div id="search" >
+  <div id="offineresult">
+    <div id="head" >
+      <img id="space" src="../imgs/w_back_page.png" @click="back"></img>
+      <div id="search" @click="toSearch">
         <img src="../imgs/lib_story_img_search_bt.png"></img>
-        <input type="text" :placeholder="getkey"/>
+        <input type="text" placeholder="请输入你想搜索的内容" disabled />
       </div>
       <p id="start"></p>
     </div>    
-       <div id="outer">
+      <div id="outer">
         <mt-loadmore  :bottom-method="loadBottom" ref="loadmore" :autoFill="false" @bottom-status-change="handleTopChange">     
 
           <ul id="shop">
-              <li v-for="(v,i) in result" :key="i" @click="toDetail(v.listid)">
+              <li v-for="(v,i) in result" :key="i" @click="toDetail(v)">
+                 <img v-lazy="v.logo"></img>
                 <div>
-                  <img v-lazy="v.picurl"></img>
-                  <b>{{v.goodsname}}</b>
-                  <p><span>￥{{v.price}}</span><span>已售{{v.sellnum}}</span></p>
+                  <p>{{v.name}}</p>
+                  <span>{{v.desc}}</span>
+                  <b><span>距离&nbsp;&nbsp;{{v.distance}}</span><span>已售:&nbsp;&nbsp;{{v.sellgoodsnum}}</span></b>
                 </div>
               </li>
           </ul>
@@ -41,7 +42,7 @@
   import 'mint-ui/lib/style.css'
   Vue.component(Loadmore.name, Loadmore);
 export default {
-  name: 'search-result',
+  name: 'offine-result',
   data(){
     return {
       result: "",
@@ -50,8 +51,13 @@ export default {
     }
   },
   methods:{
-    toDetail: function (listid) {
-       this.$router.push({name:"detail",params:{listid}});
+    toSearch: function () {
+      this.$router.push('/search');
+    },
+    toDetail: function (v) {
+      //  this.$router.push({name:"detail",params:{listid}});
+      console.log("跳向商家详情shopid="+v.shopid)
+
     },
     back: function () {
       this.$router.go(-1);
@@ -64,8 +70,8 @@ export default {
         this.pageindex++;
         console.log(this.$store.state.keyword)
         ax.post({
-            url:"/api/index.php/App/ShopGoods/",
-            body: "maxprice=&sign=b053070ba615b4143a26ca04f94d96a7&action=getGoodsList&cityid=&uuid=fd14e57682a18d2af70116bdefbb0224&shopid=&appid=81423&isbaoyou=&pageindex="+this.pageindex+"&minprice=&listorder=&clienttype=2&classid=&pagesize=10&keywords="+that.$store.state.keyword,
+            url:"/api/index.php/App/Shop/",
+            body: "sign=1e0abe640152435f5a35812dd466e140&action=getShopList&cityid=110100&uuid=fd14e57682a18d2af70116bdefbb0224&appid=81423&lng=116.251568&pageindex="+this.pageindex+"&isfuwu=1&rebateorder=&areaid=&clienttype=2&classid=&lat=40.116694&type=def&pagesize=10&keywords=&",
             cb : function (response) {
                     console.log(response)
                     if (response.data.data != "") {
@@ -77,7 +83,7 @@ export default {
                         duration: 1000
               });
              }
-                  
+               that.$refs.loadmore.onBottomLoaded();    
           }
         })
 
@@ -85,18 +91,16 @@ export default {
 
     }
   },
-  computed:{
-    getkey(){
-      //  console.log(this.$store)
-      //  this.result=this.$store.keyword;
-         let that = this;
+  mounted(){
+    let that = this;
      ax.post({
-        url:"/api/index.php/App/ShopGoods/",
-        body: "maxprice=&sign=b053070ba615b4143a26ca04f94d96a7&action=getGoodsList&cityid=&uuid=fd14e57682a18d2af70116bdefbb0224&shopid=&appid=81423&isbaoyou=&pageindex=1&minprice=&listorder=&clienttype=2&classid=&pagesize=10&keywords="+this.$store.state.keyword,
+        url:"/api/index.php/App/Shop/",
+        body: "sign=1e0abe640152435f5a35812dd466e140&action=getShopList&cityid=110100&uuid=fd14e57682a18d2af70116bdefbb0224&appid=81423&lng=116.251568&pageindex=1&isfuwu=1&rebateorder=&areaid=&clienttype=2&classid=&lat=40.116694&type=def&pagesize=10&keywords=&",
         cb : function (response) {
                 // console.log(response)
                 if (response.data.data != "") {
                   that.result = response.data.data;
+                  console.log(response.data.data)
                 }else{
                   Toast({
                     message: '我是有底线的!',
@@ -104,32 +108,8 @@ export default {
                     duration: 1000
                   });
                 }
-                // that.$refs.loadmore.onBottomLoaded();
        }
     })
-        return this.$store.state.keyword;
-    }
-    
-  },
-  mounted(){
-    // let that = this;
-    //  ax.post({
-    //     url:"/api/index.php/App/ShopGoods/",
-    //     body: "maxprice=&sign=b053070ba615b4143a26ca04f94d96a7&action=getGoodsList&cityid=&uuid=fd14e57682a18d2af70116bdefbb0224&shopid=&appid=81423&isbaoyou=&pageindex=1&minprice=&listorder=&clienttype=2&classid=&pagesize=10&keywords="+this.$store.state.keyword,
-    //     cb : function (response) {
-    //             // console.log(response)
-    //             if (response.data.data != "") {
-    //               that.result = response.data.data;
-    //             }else{
-    //               Toast({
-    //                 message: '我是有底线的!',
-    //                 position: 'bottom',
-    //                 duration: 1000
-    //               });
-    //             }
-    //             that.$refs.loadmore.onBottomLoaded();
-    //    }
-    // })
   }
  
 }
@@ -137,7 +117,7 @@ export default {
 
 <style lang='scss' scoped>
  @import '../style/usage/core/reset';
-#searchresult {
+#offineresult {
   width : 100%;
   height:100%;
   @include flexbox();
@@ -183,13 +163,14 @@ export default {
             color: #b1b1b1;
             input{
               border: none;
+              background: #fff;
             }
-          img{
-            width: .2rem;
-            height: .2rem;
-            margin-right: .1rem;
-           
-          }
+            img{
+              width: .2rem;
+              height: .2rem;
+              margin-right: .1rem;
+            
+            }
           }
         }
      
@@ -206,59 +187,72 @@ export default {
           // @include justify-content(center);
           padding: .02rem;
           overflow: hidden;
-          li{
-            @include flexbox();
-            margin: .02rem;
-            width: 48.6%;
-            // height: 280px;
-            @include flex-direction(column);
-            @include align-items(center);
-            @include justify-content(center);
-            background:#fff;
-            img{
-              width: 100%;
-              // height: 1.5rem;
-            }
-            image[lazy=loading] {
+            li{
+                @include flexbox();
+                padding: .1rem;
                 width: 100%;
-              margin: auto;
-            }
-          b{
-            width: 100%;
-            height: .38rem;
-            color: #343434;
-            @include ellipsis(null,2   );
-            overflow: hidden;
-            font-size: .12rem;
-            text-align: left;
-             font-weight: 200;
-          }
-            p{
-              @include flexbox();
-              width: 100%;
-              height: .3rem;
-              padding:  .04rem;
-              color: #666;
-                 span{
-                    @include border(.02rem 0 0 0 ,#dedede);
+                background:#fff;
+                @include align-items(center);
+                @include border(0 0 1px 0,#cbcbcb);
+                img{
+                  width: 80px;
+                  height: 80px;
+                  // height: 1.5rem;
+                }
+                img[lazy=loading] {
+                  width: 80px;
+                  height: 80px;
+                  margin: auto;
+                }
+                div{
+                  @include flex();
+                  @include flexbox();
+                  margin-left: .1rem;
+                  @include flex-direction(column);
+                  p{
                     width: 100%;
-                    padding: .04rem;
-                    color: #646464;
-                    &:nth-child(1){
-                      width: 50%;
+                    height: 20px;
+                    line-height: 20px;
+                    color: #3c3c3c;
+                    font-size: 14px;
+                    margin: .02rem 0;
+                  }
+                  span{
+                    width: 100%;
+                    @include ellipsis(null,2);
+                    color: #333;
+                    font-size: 12px;
+                   
+                  }
+                  b{
+                    margin-top: .1rem;
+                    width: 100%;
+                    @include flexbox();
+                    width: 100%;
+                    // font-weight: ;
+                    font-size: 12px;
+                    span{
+                      @include flex();
+                      color: #aaa;
+                      font-weight: 500;
                       height: 100%;
-                      color: #ce1211;
-                    }
+                     &:nth-child(1){
+                        width: 50%;
+                        text-align: left;
+                      }
                     &:nth-child(2){
                       width: 50%;
-                      height: 100%;
-                      color: #9e9e9e;
                       text-align: right;
                     }
+                    }
+                  
+                    
                   }
-              }
+
+                }
+          
             }     
-            }
+          }
   
       }
    
