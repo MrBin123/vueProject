@@ -1,11 +1,11 @@
 <template>
     <div id="footer">
         <ul>
-          <router-link to="/main/home" tag="li"  active-class="active" @click.native="onChange(0)"><img :src="home"/></router-link>
-          <router-link to="/main/postage" tag="li"  active-class="active" @click.native="onChange(1)"><img :src="postage"/></router-link>
-          <router-link to="/main/cart" tag="li"  active-class="active" @click.native="onChange(2)"><img :src="cart"/></router-link>
-          <router-link to="/main/money" tag="li"  active-class="active"  @click.native="onChange(3)"><img :src="money"/></router-link>
-          <router-link to="/main/mine" tag="li"   active-class="active"  @click.native="onChange(4)"><img :src="mine"/></router-link>
+          <router-link to="/main/home" tag="li"  active-class="active" ><p /></router-link>
+          <router-link to="/main/postage" tag="li"  active-class="active" ><p /></router-link>
+          <router-link to="/main/cart" tag="li"  active-class="active"><p /></router-link>
+          <router-link to="/main/money" tag="li"  active-class="active" ><p /></router-link>
+          <router-link to="/main/mine" tag="li"   active-class="active" ><p/></router-link>
         </ul>
     </div>
 </template>
@@ -13,65 +13,8 @@
 <script>
 import Vue from 'vue';
 export default {
-  name: 'footer',
-  data() {
-   return { 
-     home: require("../imgs/w_home_red.png"),
-     postage: require('../imgs/main_bottom_tab_category_focus.png'),
-     cart: require("../imgs/main_bottom_tab_cart_focus.png"),
-     money: require("../imgs/main_bottom_tab_faxian_focus.png"),
-     mine: require("../imgs/main_bottom_tab_personal_focus.png")
-   }
-  },
-  computed:{
-    change(){
-      console.log("zhixing")
-      this.onChange(parseInt(this.$store.state.selectid));
-      return this.$store.state.selectid;
-    }
-  },
-  methods: {
-    onChange: function(index){
-        switch (index) {
-          case 0:
-              this.home = require("../imgs/w_home_red.png");
-              this.postage = require("../imgs/main_bottom_tab_category_focus.png");
-              this.cart = require("../imgs/main_bottom_tab_cart_focus.png");
-              this.money = require("../imgs/main_bottom_tab_faxian_focus.png");
-              this.mine = require("../imgs/main_bottom_tab_mine_blue_focus.png");
-            break;
-          case 1:
-              this.home = require("../imgs/w_home_gray.png");
-              this.postage = require("../imgs/main_bottom_tab_category_normal.png");
-              this.cart = require("../imgs/main_bottom_tab_cart_focus.png");
-              this.money = require("../imgs/main_bottom_tab_faxian_focus.png");
-              this.mine = require("../imgs/main_bottom_tab_mine_blue_focus.png");
-            break;
-          case 2:
-              this.home = require("../imgs/w_home_gray.png");
-              this.postage = require("../imgs/main_bottom_tab_category_focus.png");
-              this.cart = require("../imgs/main_bottom_tab_cart_normal.png");
-              this.money = require("../imgs/main_bottom_tab_faxian_focus.png");
-              this.mine = require("../imgs/main_bottom_tab_mine_blue_focus.png");
-            break;
-          case 3:
-              this.home = require("../imgs/w_home_gray.png");
-              this.postage = require("../imgs/main_bottom_tab_category_focus.png");
-              this.cart = require("../imgs/main_bottom_tab_cart_focus.png");
-              this.money = require("../imgs/main_bottom_tab_faxian_normal.png");
-              this.mine = require("../imgs/main_bottom_tab_mine_blue_focus.png");
-            break;
-          case 4:
-              this.home = require("../imgs/w_home_gray.png");
-              this.postage = require("../imgs/main_bottom_tab_category_focus.png");
-              this.cart = require("../imgs/main_bottom_tab_cart_focus.png");
-              this.money = require("../imgs/main_bottom_tab_faxian_focus.png");
-              this.mine = require("../imgs/main_bottom_tab_personal_normal.png");
-            break;
-        
-        }
-    }
-  }
+  name: 'footer'
+
 }
 </script>
 
@@ -92,13 +35,53 @@ export default {
      @include justify-content(center);
      @include flex();
      height: 100%;
-       img{
-         width: .42rem;
-         height: .32rem;
+       p{
+         width: 100%;
+         height: 100%;
        }
-
-
+      
+      &:nth-child(1){
+        background: url('../imgs/w_home_gray.png') no-repeat center center;
+        background-size: 60%;
+      }
+       &:nth-child(2){
+        background: url('../imgs/main_bottom_tab_category_focus.png') no-repeat center center;
+        background-size: 60%;
+      }
+       &:nth-child(3){
+        background: url('../imgs/main_bottom_tab_cart_focus.png') no-repeat center center;
+        background-size: 60%;
+      }
+       &:nth-child(4){
+        background: url('../imgs/main_bottom_tab_faxian_focus.png') no-repeat center center;
+        background-size: 60%;
+      }
+       &:nth-child(5){
+        background: url('../imgs/main_bottom_tab_personal_focus.png') no-repeat center center;
+        background-size: 60%;
+      }
+      &:nth-child(1).active{
+        background: url('../imgs/w_home_red.png') no-repeat center center;
+        background-size: 60%;
+      }
+      &:nth-child(2).active{
+        background: url('../imgs/main_bottom_tab_category_normal.png') no-repeat center center;
+        background-size: 60%;
+      }
+      &:nth-child(3).active{
+        background: url('../imgs/main_bottom_tab_cart_normal.png') no-repeat center center;
+        background-size: 60%;
+      }
+      &:nth-child(4).active{
+        background: url('../imgs/main_bottom_tab_faxian_normal.png') no-repeat center center;
+        background-size: 60%;
+      }
+      &:nth-child(5).active{
+        background: url('../imgs/main_bottom_tab_personal_normal.png') no-repeat center center;
+        background-size: 60%;
+      }
      }
+    
    }
   
  }

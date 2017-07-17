@@ -56,7 +56,9 @@ export default {
       }).then(responseData=>{
         this.gooddetail=responseData.data.data;
         this.slidepic=this.gooddetail.slidepicurls;
+        
         console.log(this.gooddetail);
+
       })
   },
 }
