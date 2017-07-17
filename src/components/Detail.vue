@@ -36,31 +36,30 @@ export default {
   data(){
       return {
         gooddetail:{},
-        slidepic:[]
-   
+        slidepic:[],
+        listid:this.$route.params.listid
       }
   },
+  computed:{
+    id(){
+        return this.$store.state.goodsid;
+    }
+  },
   mounted(){
-    axios({
+      axios({
           url:'/appapi/index.php/App/ShopGoods/',
           method:'post',
           headers:{
           ContentType:'application/x-www-urlencoded;charset=UTF-8'
         },
-        data:'userid=1009780&id='+this.id+'&sign=3aa27c4cbd6dc4b8c137c0fd04817e62&action=getGoodsDetail&appid=81427&uuid=d2912dc6692e1654b6bb93b8a7be8c33&'
+        data:'userid=1009780&id='+this.listid+'&sign=3aa27c4cbd6dc4b8c137c0fd04817e62&action=getGoodsDetail&appid=81427&uuid=d2912dc6692e1654b6bb93b8a7be8c33&'
       }).then(responseData=>{
         this.gooddetail=responseData.data.data;
         this.slidepic=this.gooddetail.slidepicurls;
-        console.log(this.gooddetail);
-      })
-      
-  },
-  computed:{
-    id(){
-        return this.$store.state.goodsid;
         
-    }
-    
+        console.log(this.gooddetail);
+
+      })
   },
 }
 </script>
@@ -109,9 +108,7 @@ export default {
             }
         }
       }
-      .s-right{
-
-      }      
+           
     }
      
   }

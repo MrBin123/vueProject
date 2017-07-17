@@ -11,8 +11,8 @@ const store = new Vuex.Store({
     homeadv: '',
     keyword:"",
     goodsid:"",
-    homeadv: '',
     selectid:""
+    
   },
   mutations: {
     increment(state, payload) {

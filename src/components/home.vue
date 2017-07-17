@@ -51,7 +51,7 @@
         </div>
         <mt-loadmore :bottom-method="loadBottom"  ref="loadmore">
         <ul class="goods">
-          <li v-for="(goo,i) in goods" :key="i" @click="setgoods(goo)">
+          <li v-for="(goo,i) in goods" :key="i" @click="getlistid(goo.listid)">
             <img :src="goo.picurl">
             <p>{{goo.goodsname}}</p>
             <div class="price">
@@ -138,12 +138,16 @@ export default {
 
       this.$store.commit('changeid',cla)
     },
+    getlistid(listid){
+      this.$router.push({name:'detail',params:{listid}})
+    },
     setgoods(goods){
       this.$store.commit('getgoods',goods);
       this.$router.push('/detail')
 
     }
   },
+  
   mounted(){
     axios({
       url:'/appapi/index.php/App/ShopIndex/',
@@ -181,6 +185,7 @@ export default {
     })
     .then(responseData=>{ 
       this.goods=responseData.data.data;
+      // console.log(this.goods);
       //  this.show=false;
     })
 
