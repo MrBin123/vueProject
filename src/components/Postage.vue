@@ -363,10 +363,7 @@ export default {
   },
   computed:{
     claid(){
-         console.log("----------"+this.$store.state.claid)
-        //  this.change(0);
-        console.log(this)
-     
+      console.log("----------"+this.$store.state.claid)
       return this.$store.state.claid;
     }
   }

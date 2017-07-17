@@ -12,7 +12,7 @@
       </mt-swipe>
       <!-------------商品分类-------------->
       <ul class="classify">
-        <li v-for="(v,i) in claurl" :key="i" @click="setclaid(v.classid)">
+        <li v-for="(v,i) in claurl" :key="i" @click="setclass(v)">
           <img :src="v.picurl"/>
           <h4>{{v.classname}}</h4>
         </li>
@@ -51,7 +51,7 @@
         </div>
         <mt-loadmore :bottom-method="loadBottom"  ref="loadmore">
         <ul class="goods">
-          <li v-for="(goo,i) in goods" :key="i">
+          <li v-for="(goo,i) in goods" :key="i" @click="setgoods(goo)">
             <img :src="goo.picurl">
             <p>{{goo.goodsname}}</p>
             <div class="price">
@@ -116,10 +116,13 @@ export default {
       this.allLoaded = true;// 若数据已全部获取完毕
       this.$refs.loadmore.onBottomLoaded();
     },
-    setclaid(classid){
+    setclass(cla){
       this.$router.push('/main/postage');
-        //  window.location.href="/main/postage"
-      this.$store.commit('changeid',classid)
+      this.$store.commit('changeid',cla)
+    },
+    setgoods(goods){
+      this.$store.commit('getgoods',goods);
+      this.$router.push('/detail')
     }
   },
   mounted(){
@@ -135,8 +138,7 @@ export default {
       this.claurl=responseData.data.data.goodsclass;
       this.homead=responseData.data.data.homeads;
       this.indexad=responseData.data.data.indexad[0];
-      console.log(responseData.data.data)
-      this.show=false;
+      //  this.show=false;
     })
     axios({
       url:'/appapi/index.php/App/ShopGoods/',
@@ -160,7 +162,7 @@ export default {
     })
     .then(responseData=>{ 
       this.goods=responseData.data.data;
-      this.show=false;
+      //  this.show=false;
     })
 
   }

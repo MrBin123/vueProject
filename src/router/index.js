@@ -10,6 +10,7 @@ import Cart from '@/components/Cart'
 import Money from '@/components/Money'
 import Mine from '@/components/Mine'
 import Location from '@/components/Location'
+import Detail from '@/components/Detail'
 // import index from '/index'
 Vue.use(Router)
 
@@ -31,6 +32,11 @@ export default new Router({
       path:'/location',
       name:'location',
       component:Location
+    },
+    {
+      path:'/detail',
+      name:'detail',
+      component:Detail
     },
      {
       path: '/main',

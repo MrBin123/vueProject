@@ -7,20 +7,22 @@ const store = new Vuex.Store({
   state: {
     cityname: '',
     claid:'',
-    selectid:0,
+    claname:'',
+    goodsid:''
   },
   mutations: {
     increment(state, payload) {
         state.cityname = payload;
     },
     changeid(state,payload){
-      state.claid=payload;
-      console.log(state.claid)
+      state.claid=payload.classid;
+      state.claname=payload.classname;
     },
     changeselect(state,payload){
       state.selectid=payload;
-      console.log(typeof payload)
-      console.log(state.selectid)
+    },
+    getgoods(state,payload){
+      state.goodsid=payload.listid;
     }
   }
 })
