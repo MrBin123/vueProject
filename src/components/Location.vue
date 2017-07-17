@@ -69,18 +69,21 @@ export default {
   data(){
       return {
         value:'',
-        title:'',
-        city:[]
+        city:[],
+        citytitle:''
       }  
   },
   methods:{
-    setlocation:function(cityname){
+    setlocation:function(cityname){ 
+        console.log(cityname);   
         this.$store.commit('increment' , cityname);
         this.$router.push({name:'home'});
+
     },
     back: function () {
         // console.log("点击")
         this.$router.go(-1);
+
     }
   },
   mounted(){
@@ -94,7 +97,6 @@ export default {
     })
     .then(responseData=>{ 
       this.city=responseData.data.data;
-      console.log(this.city)
     }) 
   }
   

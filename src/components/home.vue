@@ -51,7 +51,7 @@
         </div>
         <mt-loadmore :bottom-method="loadBottom"  ref="loadmore">
         <ul class="goods">
-          <li v-for="(goo,i) in goods" :key="i">
+          <li v-for="(goo,i) in goods" :key="i" @click="setgoods(goo)">
             <img :src="goo.picurl">
             <p>{{goo.goodsname}}</p>
             <div class="price">
@@ -135,8 +135,13 @@ export default {
     },
     setclass(cla){
       this.$router.push('/main/postage');
-        //  window.location.href="/main/postage"
+
       this.$store.commit('changeid',cla)
+    },
+    setgoods(goods){
+      this.$store.commit('getgoods',goods);
+      this.$router.push('/detail')
+
     }
   },
   mounted(){
@@ -152,8 +157,7 @@ export default {
       this.claurl=responseData.data.data.goodsclass;
       this.homead=responseData.data.data.homeads;
       this.indexad=responseData.data.data.indexad[0];
-      console.log(responseData.data.data)
-      this.show=false;
+      //  this.show=false;
     })
     axios({
       url:'/appapi/index.php/App/ShopGoods/',
@@ -177,7 +181,7 @@ export default {
     })
     .then(responseData=>{ 
       this.goods=responseData.data.data;
-      this.show=false;
+      //  this.show=false;
     })
 
   }

@@ -405,6 +405,7 @@ export default {
               }
             })
       return this.$store.state.claname.substr(0,2);
+
     }
   }
 
