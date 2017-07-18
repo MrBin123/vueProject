@@ -1,5 +1,6 @@
 <template>
   <div class="detail">
+      <p>{{listid}}</p>
       <mt-swipe :show-indicators="true">
         <mt-swipe-item v-for="(pic,i) in slidepic" :key="i"><img :src="pic.picurl"></mt-swipe-item>
       </mt-swipe>
@@ -11,13 +12,27 @@
       <div class="standard">
         <p>选择颜色、规格</p><h6>></h6>
       </div>
-      <div clas="shop">
+      <div class="shop">
         <div class="s-left">
-          <p><span>服务商：</span>{{gooddetail.shopinfo.shopname}}</p>
-          <p><span>等级：</span><img :src="gooddetail.shopinfo.shoplevelimg"></p>
-          <p><span>地址：</span>{{gooddetail.shopinfo.shopfulladdr}}</p>
+          <p><span>服务商：</span>{{goodslevel.shopname}}</p>
+          <p><span>等<a>你</a>级：</span><img :src="goodslevel.shoplevelimg"></p>
+          <p><span>地<a>你</a>址：</span><b>{{goodslevel.shopfulladdr}}</b></p>
         </div>
-        <div class="s-right"></div>
+        <div class="s-right">
+          <a>进入店家</a>
+          <a>联系商家</a>
+        </div>
+      </div>
+      <div class="detail-main">
+        <p class="empty"></p>
+        <div class="shift">
+          <p class="concrete"><a @click="shift">商品详情</a></p>
+          <p class="comment"><a @click="unshift">晒单(<span></span>)</a></p>
+        </div>
+        <div class="detail-component">
+          <detailgoods :list-id="listid" v-show="show"></detailgoods>
+          <user-comments v-show="run"></user-comments>
+        </div>
       </div>
       
   </div>
@@ -27,22 +42,40 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import Detailgoods from './Detailgoods'
+import Comment from './Comment'
 import { Swipe, SwipeItem } from 'mint-ui';
 
 Vue.component(Swipe.name, Swipe);
 
 export default {
   name:'Detail',
+  components:{
+    'detailgoods':Detailgoods,
+    'user-comments':Comment
+  },
   data(){
       return {
         gooddetail:{},
         slidepic:[],
-        listid:this.$route.params.listid
+        goodslevel:{},
+        show:true,
+        run:false
       }
   },
+  methods:{
+    shift(){
+      this.show=true;
+      this.run=false;
+    },
+    unshift(){
+      this.show=false;
+      this.run=true;
+    }
+  },
   computed:{
-    id(){
-        return this.$store.state.goodsid;
+    listid(){
+      return this.$route.params.listid;
     }
   },
   mounted(){
@@ -56,9 +89,9 @@ export default {
       }).then(responseData=>{
         this.gooddetail=responseData.data.data;
         this.slidepic=this.gooddetail.slidepicurls;
-        
-        console.log(this.gooddetail);
-
+        this.goodslevel=this.gooddetail.shopinfo;
+        // console.log(this.gooddetail);
+        // console.log(this.goodslevel);
       })
   },
 }
@@ -67,11 +100,11 @@ export default {
 <style lang="scss" scoped>
   @import '../style/usage/core/reset.scss';
 
-  .detail{
-    @include flexbox();
-    @include flex();
-    @include flex-direction(column);
-    width:100%;background:#fff;
+  .detail{ 
+    // @include flexbox();
+    // @include flex();
+    // @include flex-direction(column);
+    width:100%;background:#fff;height:100%;overflow:scroll;
     .mint-swipe{
       width:100%;height:3rem;
       img{width:100%;height:100%;}
@@ -92,25 +125,56 @@ export default {
       }
     };
     .standard{
-      width:100%;height:.3rem;line-height: .3rem;padding:0 10px;color:#555;border-bottom:1px solid #eee;
-      p{float: left;}
+      clear:both;width:100%;height:.3rem;line-height: .3rem;padding:0 .1rem;color:#555;
+      border-bottom:1px solid #eee;
+      p{float:left;}
       h6{float: right;}
     };
     .shop{
       @include flexbox();
-      width:100%;height:.6rem;
-      .s-left{padding:0 10px;
+      width:100%;padding-bottom:5px;margin-top:5px;border-top:1px solid #eee;
+      border-bottom:1px solid #eee;
+      .s-left{
+        padding:0 10px;
+        @include flex(3);
         p{
-          height:.2rem;line-height: .2rem;font-size:14px;
-          span{margin-right:3px;}
-          img{
-            width:.5rem;height:.2rem;
+          font-size:12px;line-height:.2rem;@include flexbox();
+          span{
+            margin-right:10px;color:#555;
+            a{background:#fff;color:#fff;}
             }
+          b{margin:0;font-weight: normal;}
+          img{width:.8rem;height: .15rem;}
         }
       }
-           
+      .s-right{
+        @include flex(1);@include flexbox();@include flex-direction(column);
+        padding-top:.1rem;padding-left:.2rem;
+        a{color:#555;display: block;height:.26rem;line-height: .26rem;text-align:center;
+          border:1px solid #ddd;font-size:12px;width:.6rem;margin-top:5px;
+        }
+      }       
+    };
+    .detail-main{
+      width:100%;
+      .empty{width:100%;height:.05rem;background:#eee;}
+      .shift{
+        @include flexbox();
+        width:100%;height:.4rem;line-height: .4rem;
+        p{
+          @include flex();
+          padding:5px 0;
+          a{
+            display: block;width:100%;height:.3rem;;text-align: center;
+            line-height: .3rem;border-right:1px solid #eee;color:#000;
+          } 
+          a:hover{color:#f00;}
+        }
+      }
+      .detail-component{
+        width:100%;
+      }
     }
-     
   }
 
 </style>

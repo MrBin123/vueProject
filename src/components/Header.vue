@@ -4,7 +4,7 @@
       <img src="../imgs/w_gold_address_icon.png">
       <span>{{city? city:'北京市'}}</span>
     </router-link>
-    <div class="hunt">
+    <div class="hunt"  @click="jump">
       <mt-search v-model="value" cancel-text="取消" placeholder="请输入你想要的"></mt-search>
     </div>
     <div class="qrcode">
@@ -27,6 +27,11 @@
     computed:{
       city(){
         return this.$store.state.cityname
+      }
+    },
+    methods:{
+      jump(){
+        this.$router.push({name:'search'});
       }
     }
   }
