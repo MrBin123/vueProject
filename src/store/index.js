@@ -10,7 +10,6 @@ const store = new Vuex.Store({
     claname:'',
     homeadv: '',
     keyword:"",
-    goodsid:"",
     selectid:""
     
   },

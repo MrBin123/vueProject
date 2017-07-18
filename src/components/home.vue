@@ -8,7 +8,7 @@
     <div class="scro" id="scro">
       <!-------------轮播-------------->
       <mt-swipe :show-indicators="true">
-        <mt-swipe-item><img :src="indexad.picurl">s
+        <mt-swipe-item><img :src="indexad.picurl">
         </mt-swipe-item>
       </mt-swipe>
       <!-------------商品分类-------------->
@@ -162,7 +162,7 @@ export default {
 
     }
   },
-  
+
   mounted(){
     let that = this;
     $('.scro').scroll(function (e) {
