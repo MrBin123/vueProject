@@ -303,7 +303,7 @@ export default {
           .comtitle{
             @include flexbox();
             @include align-items(center);
-            width:100%; height:30px;padding-left:15px;
+            width:100%; height:30px;padding:0 15px;
             img{
               width:10px;height:13px;
             }
@@ -311,7 +311,9 @@ export default {
               margin-left:10px;color:#f00;
             }
             i{
-              margin-left:70%;color:#666;
+              @include flex();
+              text-align: right;
+               color:#666;
             }
           }
           .nearcompany{

@@ -1,12 +1,12 @@
 <template>
-  <div id="index">
+  <div id="money">
     这是赚钱页面
   </div>
 </template>
 
 <script>
 export default {
-  name: 'index' 
+  name: 'money' 
 }
 </script>
 
