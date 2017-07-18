@@ -42,29 +42,38 @@
   .home-header{
     @include flexbox();
     height:.4rem;
-    padding:.08rem 20px 0 20px;
+    // padding:.08rem 20px 0 20px;
+    // @include justify-content(center);
+    padding: .2rem 0;
+    @include align-items(center);
     width: 100%;
     background:#f00;
     .pos{
-      width:.8rem;
+      width:25%;
       color:#bbb;
-      height:100%;
+      // height:100%;
+      text-align: center;
       img{
-        height:60%;
-        width:.2rem;
+        // height:60%;
+        // width:.2rem;
+        width: 20px;
+        height: 20px;
       }
       span{
         font-size:14px;
       }
     };
     .hunt{
-      width:2rem;
+      // width:50%;
+      @include flex();
       .mint-search{
         height:100%;
       }
     };
     .qrcode{
-      margin-left:.35rem;
+      // margin-left:.35rem;
+      width:16%;
+      text-align: center;
       .qr{
         width:.24rem;
         height:.24rem;

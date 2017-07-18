@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import Footer from './Footer'
 export default {
   name: 'hone-adv',
   data(){

@@ -1,10 +1,11 @@
 <template>
   <div id="home">
+    <img id="gotop"  src="../imgs/btn_go_top.png" @click="gotop" v-show="top"></img>
     <my-loading v-show="show"></my-loading>
     <!-----------------------头部------------------------>
     <my-header></my-header>
     <!-----------------------可滚动区域------------------------>
-    <div class="scro">
+    <div class="scro" id="scro">
       <!-------------轮播-------------->
       <mt-swipe :show-indicators="true">
         <mt-swipe-item><img :src="indexad.picurl">
@@ -12,7 +13,7 @@
       </mt-swipe>
       <!-------------商品分类-------------->
       <ul class="classify">
-        <li v-for="(v,i) in claurl" :key="i" @click="setclass(v)">
+        <li v-for="(v,i) in claurl" :key="i" @click="setclass(v,i)">
           <img :src="v.picurl"/>
           <h4>{{v.classname}}</h4>
         </li>
@@ -76,7 +77,7 @@ import Vue from 'vue';
 import { Swipe, SwipeItem } from 'mint-ui';
 import Header from './Header'
 import { Loadmore } from 'mint-ui';
-
+import jquery from '../util/jquery.min.js'
 Vue.component(Loadmore.name, Loadmore);
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
@@ -96,10 +97,15 @@ export default {
       goods:[],
       topStatus:'',
       index:1,
-      show:true
+      show:true,
+      top: false
     }
   },
   methods:{
+    gotop: function () {
+      //jquer实现滚动效果
+      $('.scro').animate({ scrollTop: 0 }, 1000);
+    },
     setadvs(data,index){
        if (index == 1) {
         //  window.location.href=data;
@@ -133,10 +139,19 @@ export default {
       this.allLoaded = true;// 若数据已全部获取完毕
       this.$refs.loadmore.onBottomLoaded();
     },
-    setclass(cla){
-      this.$router.push('/main/postage');
-
-      this.$store.commit('changeid',cla)
+    setclass(cla,index){
+      // console.log(cla,index)  
+      if (index == 6) {
+        // console.log("线下实体店")
+        this.$router.push('/offline');
+      }else if (index == 7) {
+          // console.log("更多")
+          this.$router.push({name:'homemore',params:{pid:cla.classid}}); 
+      }else{
+        this.$router.push('/main/postage');
+        this.$store.commit('changeid',cla)
+      }
+     
     },
     getlistid(listid){
       this.$router.push({name:'detail',params:{listid}})
@@ -149,6 +164,16 @@ export default {
   },
 
   mounted(){
+    let that = this;
+    $('.scro').scroll(function (e) {
+      //  console.log($(this).scrollTop())
+      if ($(this).scrollTop() == 0) {
+        that.top = false;
+      }
+      if ($(this).scrollTop()>100) {
+         that.top = true;
+      }
+    })
     axios({
       url:'/appapi/index.php/App/ShopIndex/',
       method:'post',
@@ -200,6 +225,14 @@ export default {
       @include flex();
       @include flexbox();
       width:100%;
+      #gotop{
+        position: absolute;
+        width: 36px;
+        height: 36px;
+        z-index: 999;
+        right: .1rem;
+        bottom: .6rem;
+      }
       .scro{
         overflow:scroll;
         @include flex-direction(column);
@@ -222,21 +255,24 @@ export default {
         };
         .classify{
           width:100%;
-          height:2.5rem;
-          padding-top:10px;
+          // height:2.5rem;
+          padding:10px 0;
           border-bottom:1px solid #ddd;
+          @include flexbox();
+          @include flex-flow(row wrap);
           li{
-            float:left;
-            width:13%;
-            margin: 10px 6%;
+            width:25%;
+            @include align-items(center);
+            text-align: center;
             img{
-              width:100%;
-              height:.55rem;
+              // width:100%;
+              // height:.55rem;
+              width: .4rem;
+              height: .4rem;
             }
             h4{
-              margin-top:10px;
+              margin-top:6px;
               width:100%;
-              text-align:center;
               color:#555;
               font-size:12px;
             }
