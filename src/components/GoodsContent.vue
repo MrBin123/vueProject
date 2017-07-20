@@ -128,10 +128,9 @@ export default {
 
   },
   methods:{
-      detail(shopid){
-          console.log(this.$route.params.shopid)
+      detail(id){
           //详情调转
-        //   this.$route.push({name:"",params:{}})
+          this.$router.push({name:"merchant",params:{id:parseInt(this.$route.params.shopid)}})
       },
       collect(){
           //收藏

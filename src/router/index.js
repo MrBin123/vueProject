@@ -24,6 +24,10 @@ import Article from '@/components/Article'
 import ArticleShow from '@/components/ArticleShow'
 import GoodsContent from '@/components/GoodsContent'
 // import index from '/index'
+import Detailgoods from '@/components/Detailgoods'
+import Comment from '@/components/Comment'
+import Merchant from '@/components/Merchant'
+
 Vue.use(Router)
 
 export default new Router({
@@ -66,9 +70,26 @@ export default new Router({
       component: HomeMore
     },
     {
+      path:'/merchant/:id',
+      name:'merchant',
+      component: Merchant
+    },
+    {
       path:'/detail/:listid',
       name:'detail',
-      component:Detail
+      component:Detail,
+      children:[
+        {
+          path:'detailgoods',
+          name:'detailgoods',
+          component:Detailgoods
+        },
+        {
+          path:'comment',
+          name:'comment',
+          component:Comment
+        }
+      ]
     },
      {
       path:'/offline',

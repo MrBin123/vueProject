@@ -55,8 +55,8 @@ export default {
       this.$router.push('/search');
     },
     toDetail: function (v) {
-      //  this.$router.push({name:"detail",params:{listid}});
-      console.log("跳向商家详情shopid="+v.shopid)
+       this.$router.push({name:"merchant",params:{id:parseInt(v.shopid)}});
+      // console.log("跳向商家详情shopid="+v.shopid)
 
     },
     back: function () {
