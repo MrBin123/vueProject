@@ -19,7 +19,10 @@ import Search from '@/components/Search'
 import SearchResult from '@/components/SearchResult'
 import OfflineResult from '@/components/OfflineResult'
 import HomeMore from '@/components/HomeMore'
-// import index from '/index'
+import Detailgoods from '@/components/Detailgoods'
+import Comment from '@/components/Comment'
+import Merchant from '@/components/Merchant'
+
 Vue.use(Router)
 
 export default new Router({
@@ -62,9 +65,26 @@ export default new Router({
       component: HomeMore
     },
     {
-      path:'/detail/:id',
+      path:'/merchant/:id',
+      name:'merchant',
+      component: Merchant
+    },
+    {
+      path:'/detail/:listid',
       name:'detail',
-      component:Detail
+      component:Detail,
+      children:[
+        {
+          path:'detailgoods',
+          name:'detailgoods',
+          component:Detailgoods
+        },
+        {
+          path:'comment',
+          name:'comment',
+          component:Comment
+        }
+      ]
     },
      {
       path:'/offline',
