@@ -44,7 +44,7 @@
        <div id="other">
            <mt-loadmore  :bottom-method="loadBottom" ref="loadmore" :autoFill="false" @bottom-status-change="handleTopChange" :bottom-all-loaded="allLoaded">     
                 <ul id="gs">
-                        <li v-for="(v,i) in goods" :key="i">
+                        <li v-for="(v,i) in goods" :key="i" @click="goto(v)">
                             <img v-lazy="v.picurl"><img>
                                 <p>{{v.goodsname}}</p>
                                 <b>￥{{v.price}}</b>
@@ -128,6 +128,10 @@ export default {
 
   },
   methods:{
+      goto(v){
+        //   console.log(v);
+          this.$router.push({name:"detail",params:{listid:v.listid}});
+      },
       detail(id){
           //详情调转
           this.$router.push({name:"merchant",params:{id:parseInt(this.$route.params.shopid)}})
