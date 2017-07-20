@@ -19,6 +19,11 @@ import Search from '@/components/Search'
 import SearchResult from '@/components/SearchResult'
 import OfflineResult from '@/components/OfflineResult'
 import HomeMore from '@/components/HomeMore'
+import Gold from '@/components/GetGold'
+import Article from '@/components/Article'
+import ArticleShow from '@/components/ArticleShow'
+import GoodsContent from '@/components/GoodsContent'
+// import index from '/index'
 import Detailgoods from '@/components/Detailgoods'
 import Comment from '@/components/Comment'
 import Merchant from '@/components/Merchant'
@@ -92,6 +97,35 @@ export default new Router({
       component:OfflineResult
     },
      {
+      path:'/articleshow/:listid',
+      name:'articleshow',
+      component:ArticleShow
+     },
+     {
+      path:'/shop/:shopid',
+      name:'shop',
+      component:GoodsContent
+     },
+    {
+       path: '/money/:id',
+       name: 'money',
+       component: Money,
+       redirect:"/money/:id/article",
+       children:[
+         {
+          path: 'article',
+          name: 'article',
+          component: Article
+        
+          },
+          {
+            path: 'gold',
+            name: 'gold',
+            component: Gold
+          }
+      ]
+    },
+     {
       path: '/main',
       name: 'main',
       component: Main,
@@ -111,11 +145,6 @@ export default new Router({
           path: 'cart',
           name: 'cart',
           component: Cart
-        },
-        {
-          path: 'money',
-          name: 'money',
-          component: Money
         },
         {
           path: 'mine',
