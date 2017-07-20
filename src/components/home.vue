@@ -33,7 +33,7 @@
           <i>更多></i>
         </div>
         <ul class="nearcompany">
-          <li v-for="(com,i) in nearcompany" :key="i">
+          <li v-for="(com,i) in nearcompany" :key="i" @click="gotomerchant(com.id)">
             <img :src="com.picurl">
             <h5>{{com.shopname}}</h5>
             <div class="pos1">
@@ -160,6 +160,9 @@ export default {
       this.$store.commit('getgoods',goods);
       this.$router.push('/detail')
 
+    },
+    gotomerchant(id){
+      this.$router.push({name:'merchant',params:{id}})
     }
   },
 
@@ -198,6 +201,7 @@ export default {
     })
     .then(responseData=>{
       this.nearcompany=responseData.data.data;
+      // console.log(this.nearcompany);
       this.show=false;      
     })
     axios({

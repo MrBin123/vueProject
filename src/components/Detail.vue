@@ -1,6 +1,7 @@
 <template>
   <div class="detail">
-      <p>{{listid}}</p>
+      <img id="gotop"  src="../imgs/w_shoutudi_back.png" @click="back"></img>
+      <my-loading v-show="xian"></my-loading>
       <mt-swipe :show-indicators="true">
         <mt-swipe-item v-for="(pic,i) in slidepic" :key="i"><img :src="pic.picurl"></mt-swipe-item>
       </mt-swipe>
@@ -26,12 +27,12 @@
       <div class="detail-main">
         <p class="empty"></p>
         <div class="shift">
-          <p class="concrete"><a @click="shift">商品详情</a></p>
-          <p class="comment"><a @click="unshift">晒单(<span></span>)</a></p>
+          <p class="concrete"><a :class="{active: active == 1}"  @click="shift(1)">商品详情</a></p>
+          <p class="comment"><a :class="{active: active == 2}" @click="unshift(2)">晒单(<span>{{this.gooddetail.shaidan}}</span>)</a></p>
         </div>
         <div class="detail-component">
-          <detailgoods :list-id="listid" v-show="show"></detailgoods>
-          <user-comments v-show="run"></user-comments>
+          <detailgoods :listid="listid" v-show="show"></detailgoods>
+          <user-comments :listid="listid" v-show="run"></user-comments>
         </div>
       </div>
       
@@ -39,6 +40,7 @@
 </template>
 
 <script>
+import ani from '../util/Loading.vue'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
@@ -48,11 +50,14 @@ import { Swipe, SwipeItem } from 'mint-ui';
 
 Vue.component(Swipe.name, Swipe);
 
+
+
 export default {
   name:'Detail',
   components:{
     'detailgoods':Detailgoods,
-    'user-comments':Comment
+    'user-comments':Comment,
+    'my-loading':ani
   },
   data(){
       return {
@@ -60,21 +65,32 @@ export default {
         slidepic:[],
         goodslevel:{},
         show:true,
-        run:false
+        run:false,
+        xian:true,
+        active:1
       }
   },
   methods:{
-    shift(){
+    shift(sign){
+      this.active=sign;
+      // console.log(this.active);
       this.show=true;
       this.run=false;
     },
-    unshift(){
+    unshift(sign){
+      this.active=sign;
+      // console.log(this.active);      
       this.show=false;
       this.run=true;
+    },
+    back(){
+      this.$destroy();
+      this.$router.go(-1);
     }
   },
   computed:{
     listid(){
+      // console.log(this.$route.params.listid)
       return this.$route.params.listid;
     }
   },
@@ -90,6 +106,7 @@ export default {
         this.gooddetail=responseData.data.data;
         this.slidepic=this.gooddetail.slidepicurls;
         this.goodslevel=this.gooddetail.shopinfo;
+        this.xian=false;
         // console.log(this.gooddetail);
         // console.log(this.goodslevel);
       })
@@ -105,6 +122,15 @@ export default {
     // @include flex();
     // @include flex-direction(column);
     width:100%;background:#fff;height:100%;overflow:scroll;
+    #gotop{
+        position: absolute;
+        width: 36px;
+        height: 36px;
+        z-index: 999;
+        left: .1rem;
+        top: .1rem;
+        opacity:0.5
+      }
     .mint-swipe{
       width:100%;height:3rem;
       img{width:100%;height:100%;}
@@ -167,8 +193,9 @@ export default {
           a{
             display: block;width:100%;height:.3rem;;text-align: center;
             line-height: .3rem;border-right:1px solid #eee;color:#000;
+            &:nth-child(1).active {color: #f00;}
+            &:nth-child(2).active {color: #f00;}
           } 
-          a:hover{color:#f00;}
         }
       }
       .detail-component{
