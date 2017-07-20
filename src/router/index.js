@@ -19,6 +19,10 @@ import Search from '@/components/Search'
 import SearchResult from '@/components/SearchResult'
 import OfflineResult from '@/components/OfflineResult'
 import HomeMore from '@/components/HomeMore'
+import Gold from '@/components/GetGold'
+import Article from '@/components/Article'
+import ArticleShow from '@/components/ArticleShow'
+import GoodsContent from '@/components/GoodsContent'
 // import index from '/index'
 Vue.use(Router)
 
@@ -62,7 +66,7 @@ export default new Router({
       component: HomeMore
     },
     {
-      path:'/detail/:id',
+      path:'/detail/:listid',
       name:'detail',
       component:Detail
     },
@@ -70,6 +74,35 @@ export default new Router({
       path:'/offline',
       name:'offline',
       component:OfflineResult
+    },
+     {
+      path:'/articleshow/:listid',
+      name:'articleshow',
+      component:ArticleShow
+     },
+     {
+      path:'/shop/:shopid',
+      name:'shop',
+      component:GoodsContent
+     },
+    {
+       path: '/money/:id',
+       name: 'money',
+       component: Money,
+       redirect:"/money/:id/article",
+       children:[
+         {
+          path: 'article',
+          name: 'article',
+          component: Article
+        
+          },
+          {
+            path: 'gold',
+            name: 'gold',
+            component: Gold
+          }
+      ]
     },
      {
       path: '/main',
@@ -91,11 +124,6 @@ export default new Router({
           path: 'cart',
           name: 'cart',
           component: Cart
-        },
-        {
-          path: 'money',
-          name: 'money',
-          component: Money
         },
         {
           path: 'mine',
