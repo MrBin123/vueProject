@@ -60,44 +60,39 @@ import { Swipe, SwipeItem } from 'mint-ui';
 
 Vue.component(Swipe.name, Swipe);
 
-
-
 export default {
-  name:'Detail',
-  components:{
-    'detailgoods':Detailgoods,
-    'user-comments':Comment,
-    'my-loading':ani
+  name: 'Detail',
+  components: {
+    'detailgoods': Detailgoods,
+    'user-comments': Comment,
+    'my-loading': ani
   },
-  data(){
-      return {
-        gooddetail:{},
-        slidepic:[],
-        goodslevel:{},
-        show:true,
-        run:false,
-        xian:true,
-        active:1,
-        act:1
-      }
+
+  data() {
+    return {
+      gooddetail: {},
+      slidepic: [],
+      goodslevel: {},
+      show: true,
+      run: false,
+      xian: true,
+      active: 1
+    }
   },
-  methods:{
-    collect(sign){
-      this.act=sign;
-    },
-    shift(sign){
-      this.active=sign;
+  methods: {
+    shift(sign) {
+      this.active = sign;
       // console.log(this.active);
-      this.show=true;
-      this.run=false;
+      this.show = true;
+      this.run = false;
     },
-    unshift(sign){
-      this.active=sign;
-      // console.log(this.active);      
-      this.show=false;
-      this.run=true;
+    unshift(sign) {
+      this.active = sign;
+      // console.log(this.active);
+      this.show = false;
+      this.run = true;
     },
-    back(){
+    back() {
       this.$destroy();
       this.$router.go(-1);
     },
@@ -106,35 +101,34 @@ export default {
       this.$router.push('/main');
     }
   },
-  computed:{
-    listid(){
+  computed: {
+    listid() {
       // console.log(this.$route.params.listid)
       return this.$route.params.listid;
     }
   },
-  mounted(){
-      axios({
-          url:'/appapi/index.php/App/ShopGoods/',
-          method:'post',
-          headers:{
-          ContentType:'application/x-www-urlencoded;charset=UTF-8'
-        },
-        data:'userid=1009780&id='+this.listid+'&sign=3aa27c4cbd6dc4b8c137c0fd04817e62&action=getGoodsDetail&appid=81427&uuid=d2912dc6692e1654b6bb93b8a7be8c33&'
-      }).then(responseData=>{
-        this.gooddetail=responseData.data.data;
-        this.slidepic=this.gooddetail.slidepicurls;
-        this.goodslevel=this.gooddetail.shopinfo;
-        this.xian=false;
-        // console.log(this.gooddetail);
-        // console.log(this.goodslevel);
-      })
+  mounted() {
+    axios({
+      url: '/appapi/index.php/App/ShopGoods/',
+      method: 'post',
+      headers: {
+        ContentType: 'application/x-www-urlencoded;charset=UTF-8'
+      },
+      data: 'userid=1009780&id=' + this.listid + '&sign=3aa27c4cbd6dc4b8c137c0fd04817e62&action=getGoodsDetail&appid=81427&uuid=d2912dc6692e1654b6bb93b8a7be8c33&'
+    }).then(responseData => {
+      this.gooddetail = responseData.data.data;
+      this.slidepic = this.gooddetail.slidepicurls;
+      this.goodslevel = this.gooddetail.shopinfo;
+      this.xian = false;
+      // console.log(this.gooddetail);
+      // console.log(this.goodslevel);
+    })
   },
 }
 </script>
 
 <style lang="scss" scoped>
-  @import '../style/usage/core/reset.scss';
-
+@import '../style/usage/core/reset.scss';
   .detailbox{
     width:100%;height:100%;@include flexbox();@include flex-direction(column);
     .detail{ 
@@ -241,7 +235,45 @@ export default {
       }
     }
   }
-
+  ;
+  .detail-main {
+    width: 100%;
+    .empty {
+      width: 100%;
+      height: .05rem;
+      background: #eee;
+    }
+    .shift {
+      @include flexbox();
+      width: 100%;
+      height: .4rem;
+      line-height: .4rem;
+      p {
+        @include flex();
+        padding: 5px 0;
+        a {
+          display: block;
+          width: 100%;
+          height: .3rem;
+          ;
+          text-align: center;
+          line-height: .3rem;
+          border-right: 1px solid #eee;
+          color: #000;
+          &:nth-child(1).active {
+            color: #f00;
+          }
+          &:nth-child(2).active {
+            color: #f00;
+          }
+        }
+      }
+    }
+    .detail-component {
+      width: 100%;
+    }
+  }
+}
 </style>
 
 

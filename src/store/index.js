@@ -6,31 +6,31 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     cityname: '',
-    claid:'',
-    claname:'',
+    claid: '',
+    claname: '',
     homeadv: '',
-    keyword:"",
-    selectid:""
-    
+    keyword: '',
+    selectid: ''
+
   },
   mutations: {
     increment(state, payload) {
-        state.cityname = payload;
+      state.cityname = payload
     },
-    changeid(state,payload){
-      state.claid=payload.classid;
-      state.claname=payload.classname;
+    changeid(state, payload) {
+      state.claid = payload.classid
+      state.claname = payload.classname
       // console.log(state.claid)
     },
-    getkeyworld(state,payload){
-      state.keyword=payload;
+    getkeyworld(state, payload) {
+      state.keyword = payload
 
     },
-    changeselect(state,payload){
-      state.selectid=payload;
+    changeselect(state, payload) {
+      state.selectid = payload
     },
-    getgoods(state,payload){
-      state.goodsid=payload.listid;
+    getgoods(state, payload) {
+      state.goodsid = payload.listid
 
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <div id="index">
-    <img src="../imgs/splash_bg.png"/>
+    <img src="../imgs/splash_bg.png" />
   </div>
 </template>
 
@@ -8,25 +8,24 @@
 export default {
   name: 'index',
   mounted() {
-   
-    setTimeout(function() {
+
+    setTimeout(function () {
       // console.log(this)
       this.$router.push('/adv');
-    
+
     }.bind(this), 2000);
-  }  
+  }
 }
 </script>
 
 <style lang='scss' scoped>
 //  @import '../style/usage/core/reset';
 #index {
-  width : 100%;
-  height: 100%;
-  // @include flexbox();
+  width: 100%;
+  height: 100%; // @include flexbox();
   // @include align-items(center);
   // @include justify-content(center);
-  img{
+  img {
     width: 100%;
     height: 100%;
   }

@@ -6,17 +6,14 @@
 
 <script>
 export default {
-  name: 'cart' 
+  name: 'cart'
 }
 </script>
 
 <style lang='scss' scoped>
- #cart{
-   width: 100%;
-   height: 100%;
-   background: blue;
- }
-
-  
-
+#cart {
+  width: 100%;
+  height: 100%;
+  background: blue;
+}
 </style>

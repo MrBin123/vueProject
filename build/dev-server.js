@@ -64,10 +64,10 @@ app.use(staticPath, express.static('./static'))
 
 
   //  var uri = 'http://10.9.17.239:' + port
-      // var uri = 'http://192.168.1.101:' + port
-   var uri = 'http://localhost:' + port
+      var uri = 'http://192.168.1.101:' + port
+  //  var uri = 'http://localhost:' + port
   //  var uri = 'http://10.9.17.250:' + port
-      // var uri = 'http://192.168.1.102:' + port
+      // var uri = 'http://192.168.1.103:' + port
   //  var uri = 'http://localhost:' + port
 
 var _resolve
