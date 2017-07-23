@@ -6,17 +6,14 @@
 
 <script>
 export default {
-  name: 'index' 
+  name: 'index'
 }
 </script>
 
 <style lang='scss' scoped>
-  #mine{
-    width: 100%;
-    height: 100%;
-    background: #0ff;
-  }
-
-  
-
+#mine {
+  width: 100%;
+  height: 100%;
+  background: #0ff;
+}
 </style>

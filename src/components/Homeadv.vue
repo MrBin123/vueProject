@@ -2,21 +2,20 @@
   <div id="adv">
     <iframe :src="geturl"></iframe>
   </div>
- 
 </template>
 
 <script>
 export default {
   name: 'hone-adv',
-  data(){
+  data() {
     return {
       url: ""
     }
   },
   computed: {
-    geturl(){
+    geturl() {
       // console.log(this.$store.homeadv)
-      this.url=this.$store.homeadv;
+      this.url = this.$store.homeadv;
       return this.$store.homeadv
     }
   }
@@ -24,12 +23,11 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-
 #adv {
-  width : 100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  iframe{
+  iframe {
     width: 100%;
     height: 100%;
   }

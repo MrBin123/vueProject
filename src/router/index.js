@@ -27,111 +27,118 @@ import GoodsContent from '@/components/GoodsContent'
 import Detailgoods from '@/components/Detailgoods'
 import Comment from '@/components/Comment'
 import Merchant from '@/components/Merchant'
-
+import GoodsShow from '@/components/GoodsShow'
+import SmallCart from '@/components/SmallCart'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'Index',
       component: Index
-   
+
     },
-     {
+    {
       path: '/adv',
       name: 'adv',
       component: Adv
-   
+
     },
     {
-      path:'/search',
-      name:'search',
+      path: '/search',
+      name: 'search',
       component: Search
     },
     {
-      path:'/searchresult',
-      name:'searchresult',
+      path: '/searchresult',
+      name: 'searchresult',
       component: SearchResult
     },
     {
-      path:'/location',
-      name:'location',
+      path: '/location',
+      name: 'location',
       component: Location
     },
     {
-      path:'/homeadv',
-      name:'homeadv',
+      path: '/homeadv',
+      name: 'homeadv',
       component: Homeadv
     },
-      {
-      path:'/homemore/:pid',
-      name:'homemore',
+    {
+      path: '/homemore/:pid',
+      name: 'homemore',
       component: HomeMore
     },
     {
-      path:'/merchant/:id',
-      name:'merchant',
+      path: '/merchant/:id',
+      name: 'merchant',
       component: Merchant
     },
     {
-      path:'/detail/:listid',
-      name:'detail',
-      component:Detail,
-      children:[
-        {
-          path:'detailgoods',
-          name:'detailgoods',
-          component:Detailgoods
+      path: '/detail/:listid',
+      name: 'detail',
+      component: Detail,
+      children: [{
+          path: 'detailgoods',
+          name: 'detailgoods',
+          component: Detailgoods
         },
         {
-          path:'comment',
-          name:'comment',
-          component:Comment
+          path: 'comment',
+          name: 'comment',
+          component: Comment
         }
       ]
     },
-     {
-      path:'/offline',
-      name:'offline',
-      component:OfflineResult
-    },
-     {
-      path:'/articleshow/:listid',
-      name:'articleshow',
-      component:ArticleShow
-     },
-     {
-      path:'/shop/:shopid',
-      name:'shop',
-      component:GoodsContent
-     },
     {
-       path: '/money/:id',
-       name: 'money',
-       component: Money,
-       redirect:"/money/:id/article",
-       children:[
-         {
+      path: '/offline',
+      name: 'offline',
+      component: OfflineResult
+    },
+    {
+      path: '/articleshow/:listid',
+      name: 'articleshow',
+      component: ArticleShow
+    },
+    {
+      path: '/shop/:shopid',
+      name: 'shop',
+      component: GoodsContent
+    },
+    {
+      path: '/smallcart',
+      name: 'smallcart',
+      component: SmallCart
+    },
+    {
+      path: '/goodsshow/:id',
+      name: 'goodsshow',
+      component: GoodsShow
+    },
+    {
+      path: '/money/:id',
+      name: 'money',
+      component: Money,
+      redirect: '/money/:id/article',
+      children: [{
           path: 'article',
           name: 'article',
           component: Article
-        
-          },
-          {
-            path: 'gold',
-            name: 'gold',
-            component: Gold
-          }
+
+        },
+        {
+          path: 'gold',
+          name: 'gold',
+          component: Gold
+        }
       ]
     },
-     {
+    {
       path: '/main',
       name: 'main',
       component: Main,
-      redirect :'/main/home',
-      children:[
-        {
+      redirect: '/main/home',
+      children: [{
           path: 'home',
           name: 'home',
           component: Home
